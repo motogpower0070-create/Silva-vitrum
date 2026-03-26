@@ -1,196 +1,195 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silva-Vitrum | Premium Wood & Glass Suites</title>
+    <title>Silva-Vitrum | Wood & Glass Excellence</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
-        :root { --white: #ffffff; --black: #111111; --accent: #fcfcfc; --gold: #ae944f; --pkr-green: #006633; --sale-red: #bf1e2e; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); line-height: 1.6; overflow-x: hidden; }
+        :root { --white: #ffffff; --black: #111111; --gold: #ae944f; --pkr-green: #006633; --sale-red: #bf1e2e; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-        /* Notification & Status */
-        .cart-status-bar { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1200; font-size: 0.7rem; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid #333; }
-        .toast-notification { position: fixed; top: -100px; left: 0; width: 100%; background: #fafafa; color: black; padding: 20px; text-align: center; z-index: 5000; font-size: 0.7rem; letter-spacing: 1px; transition: 0.4s; border-bottom: 2px solid var(--black); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
-        .toast-notification.show { top: 0; }
+        /* Cart & Notifications */
+        .cart-status-bar { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1200; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
+        .toast { position: fixed; top: -100px; left: 0; width: 100%; background: white; color: black; padding: 20px; text-align: center; z-index: 5000; transition: 0.4s; border-bottom: 2px solid black; font-weight: 600; font-size: 0.7rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .toast.show { top: 0; }
 
-        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); position: relative; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 3px; cursor: pointer; color: var(--black); font-weight: 700; }
+        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid #eee; position: relative; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 3px; font-weight: 700; }
         .ham { cursor: pointer; position: absolute; left: 20px; top: 25px; width: 25px; }
         .ham span { display: block; height: 1px; background: black; margin-bottom: 6px; }
 
-        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.5s; border-right: 1px solid #eee; padding-top: 80px; box-shadow: 10px 0 50px rgba(0,0,0,0.05); }
+        /* Sidebar */
+        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.5s; border-right: 1px solid #eee; padding-top: 80px; }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 18px 25px; text-decoration: none; color: black; font-size: 0.8rem; letter-spacing: 1px; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .sidebar a { display: block; padding: 18px 25px; text-decoration: none; color: black; font-size: 0.75rem; letter-spacing: 1px; border-bottom: 1px solid #f4f4f4; cursor: pointer; }
 
-        /* SPLASH PAGE (Anchored CTA at 1/4 Screen) */
-        #front-page-splash { position: fixed; top: 112px; left: 0; width: 100%; height: calc(100vh - 112px); background: white; z-index: 1500; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s ease; }
-        #front-page-splash.hide { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(20px); }
-        .cta-container { position: absolute; top: 25%; width: 100%; text-align: center; cursor: pointer; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; background: #fff; }
-        .cta-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 4px; color: var(--black); }
-        .cta-btn span { color: var(--gold); margin-right: 10px; }
+        /* Splash Page */
+        #splash { position: fixed; top: 105px; left: 0; width: 100%; height: 100vh; background: white; z-index: 1500; display: flex; flex-direction: column; align-items: center; transition: 0.8s ease; }
+        #splash.hide { opacity: 0; visibility: hidden; transform: translateY(-20px); }
+        .cta-box { position: absolute; top: 25%; width: 100%; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 30px 0; cursor: pointer; background: white; }
+        .cta-btn { background: none; border: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; cursor: pointer; }
 
-        /* Pages */
-        .page { display: none; padding: 20px; min-height: 80vh; animation: fadeIn 0.4s; max-width: 900px; margin: auto; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Grid & Cards */
+        .container { padding: 20px; max-width: 1100px; margin: auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { border: 1px solid #eee; padding: 10px; text-align: center; position: relative; background: white; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 2px; }
+        .p-name { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin: 10px 0; height: 35px; overflow: hidden; }
+        
+        /* Pricing */
+        .old-p { color: var(--sale-red); text-decoration: line-through; font-size: 0.7rem; margin-right: 5px; }
+        .new-p { color: var(--pkr-green); font-weight: 700; font-size: 0.85rem; }
+        .s-badge { background: var(--sale-red); color: white; font-size: 0.6rem; padding: 2px 5px; position: absolute; top: 15px; right: 15px; border-radius: 2px; }
 
-        /* Product Theme */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .product-card { text-align: center; margin-bottom: 30px; position: relative; padding: 15px; border: 1px solid transparent; transition: 0.3s; background: #fff; }
-        .product-card:hover { border-color: #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .product-card img { width: 100%; height: 230px; object-fit: cover; border-radius: 4px; cursor: pointer; }
-        .product-name { font-size: 0.8rem; font-weight: 600; margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .current-price { color: var(--pkr-green); font-weight: 600; font-size: 0.9rem; }
+        /* Controls */
+        .qty-row { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 10px 0; }
+        .q-btn { width: 28px; height: 28px; border: 1px solid #ddd; background: white; cursor: pointer; }
+        .add-btn { background: var(--black); color: white; border: none; width: 100%; padding: 12px; font-size: 0.65rem; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .sec-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.4rem; margin: 40px 0 20px; text-decoration: underline; text-underline-offset: 8px; }
 
-        /* Qty & Buttons */
-        .qty-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 15px 0; }
-        .q-btn { border: 1px solid #ddd; background: white; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .buy-btn { background: black; color: white; border: none; padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; }
-        .back-nav-btn { background: none; border: none; text-decoration: underline; color: #666; font-size: 0.65rem; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
+        /* Info Page */
+        .info-page { display: none; padding: 40px 20px; }
+        .info-page.active { display: block; }
     </style>
 </head>
 <body>
 
-<div id="toast" class="toast-notification">ITEM ADDED</div>
-
-<div class="cart-status-bar" id="cart-status">CART: 0 ITEMS | RS. 0</div>
+<div id="toast" class="toast">ITEM ADDED TO SUITE</div>
+<div class="cart-status-bar" id="cart-text">CART: 0 ITEMS | RS. 0</div>
 
 <header>
-    <div class="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-    <div class="logo" onclick="showPage('home')">Silva-Vitrum</div>
+    <div class="ham" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+    <div class="logo">Silva-Vitrum</div>
 </header>
 
 <div class="sidebar" id="sidebar">
     <a onclick="filter('All')">ALL COLLECTIONS</a>
-    <a onclick="filter('Bedroom')">BEDROOM (3)</a>
-    <a onclick="filter('Kitchen')">KITCHEN (3)</a>
-    <a onclick="filter('Seasonal')">SEASONAL (3)</a>
-    <a onclick="filter('Discounted')">DISCOUNTED (3)</a>
-    <a onclick="filter('Deals')">EXCLUSIVE DEALS (3)</a>
-    <a onclick="showPage('home')" style="background: #fafafa;">BACK TO SHOP</a>
+    <a onclick="filter('Bedroom')">BEDROOM SUITES</a>
+    <a onclick="filter('Kitchen')">KITCHEN SUITES</a>
+    <a onclick="filter('Seasonal')">SEASONAL ITEMS</a>
+    <a onclick="filter('Discounted')">30% OFF SALE</a>
+    <a onclick="filter('Deals')">EXCLUSIVE DEALS</a>
+    <a onclick="showInfo()">BUSINESS INFORMATION</a>
+    <a onclick="closeAll()" style="background:#f9f9f9">BACK TO SHOP</a>
 </div>
 
-<div id="front-page-splash">
-    <div class="cta-container" onclick="closeSplash()">
-        <button class="cta-btn"><span>→</span> what are u waiting for?</button>
+<div id="splash">
+    <div class="cta-box" onclick="enterShop()">
+        <button class="cta-btn"><span style="color:var(--gold)">→</span> WHAT ARE U WAITING FOR?</button>
     </div>
-    <div style="text-align: center; margin-top: 100px;">
-        <h1 style="font-family: 'Playfair Display'; font-size: 2rem; letter-spacing: 2px;">Grand Opening</h1>
-        <p style="font-size: 0.7rem; color: #888; letter-spacing: 3px; text-transform: uppercase;">Pakistan's Artisan Suite</p>
+    <div style="margin-top: 120px; text-align: center;">
+        <h1 style="font-family:'Playfair Display'; margin:0">GRAND OPENING</h1>
+        <p style="font-size:0.6rem; letter-spacing:3px; color:#999">HANDCRAFTED IN GUJRAT, PAKISTAN</p>
     </div>
 </div>
 
-<div id="home" class="page active">
-    <h2 class="section-title" style="display: block; text-align: center; font-family: 'Playfair Display'; margin-bottom: 30px;">The Collection</h2>
-    <div class="grid" id="main-grid"></div>
+<div class="container" id="main-shop">
+    <div id="content"></div>
 </div>
 
-<div id="product-page" class="page">
-    <button class="back-nav-btn" onclick="showPage('home')">← Back to Shop</button>
-    <div id="product-detail-content"></div>
-</div>
-
-<div id="checkout" class="page">
-    <button class="back-nav-btn" onclick="showPage('home')">← Back to Shop</button>
-    <h2 class="section-title">Order Summary</h2>
-    <div id="final-list" style="margin-bottom: 20px; font-size: 0.8rem;"></div>
-    <button class="buy-btn" onclick="location.reload()">COMPLETE PURCHASE</button>
+<div class="container info-page" id="info-page">
+    <h2 class="sec-title">Business Info</h2>
+    <p><strong>📍 Location:</strong> Plot 42-C, Small Industrial Estate, Gujrat, Pakistan</p>
+    <p><strong>📞 WhatsApp:</strong> +92 300 1234567</p>
+    <p><strong>📧 Email:</strong> hello@silvavitrum.com</p>
+    <p><strong>🕒 Hours:</strong> Mon-Sat (9AM - 7PM)</p>
+    <button class="add-btn" onclick="closeAll()">Return to Shop</button>
 </div>
 
 <script>
-    let cart = [];
-    let products = [];
-    
-    const items = [
-        { id: 'b1', cat: 'Bedroom', name: 'Ziarat Bed', price: 95000, img: 'bed,bedroom,person' },
-        { id: 'b2', cat: 'Bedroom', name: 'Kaghan Side', price: 18000, img: 'nightstand,person' },
-        { id: 'b3', cat: 'Bedroom', name: 'Hunza Dresser', price: 45000, img: 'dresser,person' },
-        { id: 'k1', cat: 'Kitchen', name: 'Pot Table', price: 85000, img: 'dining,table,person' },
-        { id: 'k2', cat: 'Kitchen', name: 'Marg Stools', price: 14000, img: 'stool,kitchen,person' },
-        { id: 'k3', cat: 'Kitchen', name: 'Bolan Cab', price: 55000, img: 'cabinet,person' },
-        { id: 's1', cat: 'Seasonal', name: 'Naran Swing', price: 42000, img: 'swing,chair,person' },
-        { id: 's2', cat: 'Seasonal', name: 'Ayu Rocker', price: 22000, img: 'rocking,chair,person' },
-        { id: 's3', cat: 'Seasonal', name: 'Mur Fire Pit', price: 25000, img: 'fireplace,person' },
-        { id: 'd1', cat: 'Discounted', name: 'Lah Desk', price: 28000, img: 'desk,person' },
-        { id: 'd2', cat: 'Discounted', name: 'Ravi Table', price: 16000, img: 'coffee,table,person' },
-        { id: 'd3', cat: 'Discounted', name: 'Tax Console', price: 9000, img: 'console,person' },
-        { id: 'e1', cat: 'Deals', name: 'Bed Pack', price: 195000, img: 'bedroom,set,person' },
-        { id: 'e2', cat: 'Deals', name: 'Dining Pack', price: 110000, img: 'dining,room,family' },
-        { id: 'e3', cat: 'Deals', name: 'Garden Suite', price: 55000, img: 'patio,set,person' }
+    let cart = {};
+    const products = [
+        { cat:'Bedroom', name:'Royal haven bedroom suite', price:180000, img:'1000007190.png' },
+        { cat:'Bedroom', name:'Midnight Luxe bedroom collection', price:210000, img:'1000007191.png' },
+        { cat:'Bedroom', name:'Serene oak retreat bedroom set', price:165000, img:'1000007192.png' },
+        { cat:'Kitchen', name:'Golden crest kitchen suite', price:120000, img:'1000007193.png' },
+        { cat:'Kitchen', name:'Urban Noir kitchen collection', price:145000, img:'1000007194.png' },
+        { cat:'Kitchen', name:'Pure Haven kitchen set', price:110000, img:'1000007195.png' },
+        { cat:'Seasonal', name:'Golden breeze collection', price:55000, img:'1000007196.png' },
+        { cat:'Seasonal', name:'Frost haven collection', price:65000, img:'1000007197.png' },
+        { cat:'Seasonal', name:'Bloom aura collection', price:48000, img:'1000007198.png' },
+        { cat:'Discounted', name:'Bargain haven', price:70000, img:'1000007199.png', sale:true },
+        { cat:'Discounted', name:'Deal depot', price:56000, img:'1000007200.png', sale:true },
+        { cat:'Discounted', name:'Hot picks sale', price:49000, img:'1000007201.png', sale:true },
+        { cat:'Deals', name:'Perfect pair deals', price:250000, img:'1000007202.png' },
+        { cat:'Deals', name:'Duo delight collection', price:220000, img:'1000007203.png' },
+        { cat:'Deals', name:'Twin treasure deals', price:275000, img:'1000007205.png' }
     ];
 
-    products = items.map(p => ({ ...p, img: `https://loremflickr.com/800/800/${p.img}?random=${p.id}` }));
-
-    function render(list) {
-        document.getElementById('main-grid').innerHTML = list.map(p => {
-            const qty = cart.filter(x => x.id === p.id).length;
-            return `
-                <div class="product-card">
-                    <img src="${p.img}" onclick="viewProduct('${p.id}')">
-                    <div class="product-name">${p.name}</div>
-                    <div class="current-price">Rs. ${p.price.toLocaleString()}</div>
-                    <div class="qty-row">
-                        <button class="q-btn" onclick="adjQty('${p.id}', -1)">-</button>
-                        <span style="font-weight:600; font-size:0.9rem;">${qty}</span>
-                        <button class="q-btn" onclick="adjQty('${p.id}', 1)">+</button>
-                    </div>
-                    <button class="buy-btn" onclick="addToCart('${p.id}')">ADD TO CART</button>
-                </div>
-            `;
-        }).join('');
+    function render(data = products) {
+        let html = '';
+        const categories = [...new Set(data.map(p => p.cat))];
+        
+        categories.forEach(cat => {
+            html += `<h2 class="sec-title">${cat}</h2><div class="grid">`;
+            data.filter(p => p.cat === cat).forEach(p => {
+                const qty = cart[p.name] || 0;
+                let priceHtml = `<span class="new-p">Rs. ${p.price.toLocaleString()}</span>`;
+                if(p.sale) {
+                    const old = Math.round(p.price / 0.7);
+                    priceHtml = `<span class="old-p">Rs. ${old.toLocaleString()}</span><span class="new-p">Rs. ${p.price.toLocaleString()}</span><div class="s-badge">30% OFF</div>`;
+                }
+                html += `
+                    <div class="card">
+                        <img src="${p.img}">
+                        <div class="p-name">${p.name}</div>
+                        <div>${priceHtml}</div>
+                        <div class="qty-row">
+                            <button class="q-btn" onclick="updateQty('${p.name}', -1)">-</button>
+                            <span>${qty}</span>
+                            <button class="q-btn" onclick="updateQty('${p.name}', 1)">+</button>
+                        </div>
+                        <button class="add-btn" onclick="updateQty('${p.name}', 1)">ADD TO CART</button>
+                    </div>`;
+            });
+            html += `</div>`;
+        });
+        document.getElementById('content').innerHTML = html;
+        updateHeader();
     }
 
-    function adjQty(id, delta) {
-        if (delta === 1) addToCart(id);
-        else {
-            const idx = cart.findIndex(x => x.id === id);
-            if (idx !== -1) cart.splice(idx, 1);
-            updateCart();
-            render(products);
-        }
+    function updateQty(name, d) {
+        cart[name] = Math.max(0, (cart[name] || 0) + d);
+        if(d > 0) showToast(name);
+        render();
     }
 
-    function addToCart(id) {
-        const p = products.find(x => x.id === id);
-        cart.push(p);
-        updateCart();
-        render(products);
+    function showToast(n) {
         const t = document.getElementById('toast');
-        t.innerText = `${p.name.toUpperCase()} ADDED`;
+        t.innerText = n.toUpperCase() + " ADDED";
         t.classList.add('show');
         setTimeout(() => t.classList.remove('show'), 2000);
     }
 
-    function updateCart() {
-        const total = cart.reduce((s, p) => s + p.price, 0);
-        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | RS. ${total.toLocaleString()}`;
+    function updateHeader() {
+        let c = 0; let t = 0;
+        for(let n in cart) { c += cart[n]; t += (cart[n] * products.find(x => x.name === n).price); }
+        document.getElementById('cart-text').innerText = `CART: ${c} ITEMS | TOTAL: RS. ${t.toLocaleString()}`;
     }
 
-    function viewProduct(id) {
-        const p = products.find(x => x.id === id);
-        document.getElementById('product-detail-content').innerHTML = `
-            <img src="${p.img}" style="width:100%; border-radius:4px;">
-            <h2>${p.name}</h2>
-            <div class="current-price" style="font-size:1.4rem;">Rs. ${p.price.toLocaleString()}</div>
-            <button class="buy-btn" onclick="addToCart('${p.id}')" style="margin-top:20px;">ADD TO CART</button>
-        `;
-        showPage('product-page');
+    function enterShop() { document.getElementById('splash').classList.add('hide'); }
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+    function filter(c) { 
+        const filtered = (c === 'All') ? products : products.filter(p => p.cat === c);
+        render(filtered); 
+        closeAll();
     }
-
-    function closeSplash() { document.getElementById('front-page-splash').classList.add('hide'); }
-    function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-    function filter(c) { render(c === 'All' ? products : products.filter(p => p.cat === c)); showPage('home'); }
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+    function showInfo() {
+        document.getElementById('main-shop').style.display = 'none';
+        document.getElementById('info-page').classList.add('active');
+        toggleSidebar();
+    }
+    function closeAll() {
+        document.getElementById('main-shop').style.display = 'block';
+        document.getElementById('info-page').classList.remove('active');
         document.getElementById('sidebar').classList.remove('active');
-        closeSplash();
-        window.scrollTo(0,0);
+        enterShop();
     }
 
-    render(products);
+    render();
 </script>
 </body>
 </html>
