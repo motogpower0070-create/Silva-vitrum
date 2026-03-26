@@ -10,48 +10,53 @@
         :root { --white: #ffffff; --black: #1a1a1a; --accent: #f4f4f4; --gold: #ae944f; --pkr-green: #006633; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); line-height: 1.6; }
 
-        /* Fixed Cart Header */
-        .cart-status-bar { background: var(--black); color: white; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 1100; font-size: 0.7rem; letter-spacing: 1px; }
+        /* Navigation & Status */
+        .cart-status-bar { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1100; font-size: 0.75rem; letter-spacing: 1px; font-weight: 600; border-bottom: 1px solid #333; }
         
-        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 3px; cursor: pointer; }
+        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); position: relative; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 3px; cursor: pointer; color: var(--black); }
         
-        .ham { cursor: pointer; position: absolute; left: 20px; top: 55px; width: 25px; }
+        .ham { cursor: pointer; position: absolute; left: 20px; top: 25px; width: 25px; }
         .ham span { display: block; height: 2px; background: black; margin-bottom: 5px; }
 
-        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.4s; border-right: 1px solid #eee; padding-top: 60px; }
+        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.4s; border-right: 1px solid #eee; padding-top: 60px; box-shadow: 10px 0 30px rgba(0,0,0,0.05); }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 15px 25px; text-decoration: none; color: black; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid #f9f9f9; }
+        .sidebar a { display: block; padding: 18px 25px; text-decoration: none; color: black; font-size: 0.8rem; font-weight: 400; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
 
-        /* Grid */
-        .page { display: none; padding: 20px; animation: fadeIn 0.4s; }
+        /* Layout & Pages */
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s; max-width: 800px; margin: auto; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .product-card { text-align: center; margin-bottom: 20px; }
-        .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; cursor: pointer; background: #eee; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .product-card { text-align: center; margin-bottom: 25px; border: 1px solid transparent; transition: 0.3s; padding: 10px; }
+        .product-card:hover { border-color: #eee; }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; cursor: pointer; background: #f0f0f0; }
         
-        /* Star Rating */
-        .stars { color: var(--gold); font-size: 0.8rem; margin: 5px 0; }
-        .star-input { font-size: 1.5rem; cursor: pointer; color: #ccc; }
-        .star-input.selected { color: var(--gold); }
+        /* Typography */
+        .product-name { font-size: 0.8rem; font-weight: 600; margin: 12px 0 5px; text-transform: uppercase; color: #333; }
+        .product-price { font-size: 0.85rem; color: var(--pkr-green); font-weight: 600; }
 
-        /* Buttons */
-        .btn-main { background: var(--black); color: white; border: none; padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
-        .btn-alt { background: white; color: var(--black); border: 1px solid var(--black); padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        /* Buttons & Controls */
+        .btn-main { background: var(--black); color: white; border: none; padding: 16px; width: 100%; font-size: 0.75rem; font-weight: 600; cursor: pointer; text-transform: uppercase; margin-top: 10px; letter-spacing: 1px; }
+        .btn-alt { background: white; color: var(--black); border: 1px solid var(--black); padding: 14px; width: 100%; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+        .back-btn { background: #f4f4f4; color: #666; border: none; padding: 10px 20px; font-size: 0.65rem; cursor: pointer; margin-bottom: 20px; display: inline-flex; align-items: center; border-radius: 20px; font-weight: 600; }
 
         /* Review Section */
-        .review-box { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-        .review-item { font-size: 0.75rem; background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        .stars { color: var(--gold); font-size: 0.9rem; margin: 8px 0; }
+        .star-input { font-size: 1.8rem; cursor: pointer; color: #ddd; padding: 0 5px; }
+        .star-input.selected { color: var(--gold); }
+        .review-box { margin-top: 40px; background: #fafafa; padding: 20px; border-radius: 8px; }
+        .review-item { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.8rem; }
 
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; font-family: 'Montserrat'; box-sizing: border-box; }
+        input, select, textarea { width: 100%; padding: 14px; margin-top: 10px; border: 1px solid #ddd; font-family: 'Montserrat'; font-size: 0.8rem; box-sizing: border-box; border-radius: 4px; }
+        .section-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.6rem; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
 <div class="cart-status-bar" id="cart-status">
-    CART: 0 ITEMS | TOTAL: RS. 0
+    CART: 0 ITEMS | RS. 0
 </div>
 
 <header>
@@ -61,37 +66,54 @@
 
 <div class="sidebar" id="sidebar">
     <a onclick="filter('All')">ALL PRODUCTS</a>
-    <a onclick="filter('Bedroom')">BEDROOM (5)</a>
-    <a onclick="filter('Kitchen')">KITCHEN (5)</a>
-    <a onclick="filter('Seasonal')">SEASONAL (5)</a>
-    <a onclick="filter('Discounted')">DISCOUNTED (5)</a>
-    <a onclick="filter('Deals')">DEALS (5)</a>
+    <a onclick="filter('Bedroom')">BEDROOM COLLECTION</a>
+    <a onclick="filter('Kitchen')">KITCHEN & DINING</a>
+    <a onclick="filter('Seasonal')">SEASONAL FURNITURE</a>
+    <a onclick="filter('Discounted')">DISCOUNTED PIECES</a>
+    <a onclick="filter('Deals')">EXCLUSIVE DEALS</a>
+    <a onclick="showPage('home')">BACK TO SHOP</a>
 </div>
 
 <div id="home" class="page active">
+    <h2 class="section-title">The Pakistan Collection</h2>
     <div class="grid" id="main-grid"></div>
 </div>
 
 <div id="product-page" class="page">
-    <button class="btn-alt" style="width:auto; margin-bottom:20px;" onclick="showPage('home')">← BACK</button>
+    <button class="back-btn" onclick="showPage('home')">← BACK TO SHOP</button>
     <div id="product-detail-content"></div>
 </div>
 
 <div id="add-more-page" class="page">
-    <h3 style="text-align:center;">PEOPLE ALSO BOUGHT</h3>
+    <button class="back-btn" onclick="showPage('home')">← BACK TO SHOP</button>
+    <h3 class="section-title">Similar Handcrafted Pieces</h3>
     <div class="grid" id="upsell-grid"></div>
-    <button class="btn-main" onclick="showPage('checkout')">PROCEED TO BUY NOW</button>
+    <button class="btn-main" style="padding:25px; font-size:1rem;" onclick="showPage('checkout')">PROCEED TO BUY NOW</button>
 </div>
 
 <div id="checkout" class="page">
-    <h2 style="text-align:center;">FINAL CHECKOUT</h2>
-    <div id="final-summary" style="padding:15px; background:#f4f4f4; margin-bottom:20px; font-size:0.8rem;"></div>
-    <input type="text" placeholder="FULL NAME">
-    <input type="text" placeholder="PAKISTAN MOBILE NO (+92)">
-    <input type="email" placeholder="EMAIL ADDRESS">
-    <select><option>Select City (Lahore, Karachi, etc)</option><option>Lahore</option><option>Karachi</option><option>Islamabad</option></select>
-    <select><option>Cash on Delivery</option><option>Bank Transfer</option></select>
-    <button class="btn-main" onclick="alert('Order Placed Successfully!')">PLACE ORDER</button>
+    <button class="back-btn" onclick="showPage('home')">← BACK TO SHOP</button>
+    <h2 class="section-title">Secure Checkout</h2>
+    <div id="final-summary" style="padding:20px; background:#f9f9f9; border:1px dashed #ccc; margin-bottom:25px; text-align:center; font-weight:600;"></div>
+    
+    <div style="background:white; padding:10px;">
+        <label style="font-size:0.7rem; font-weight:600;">FULL NAME</label>
+        <input type="text" placeholder="e.g. Ali Ahmed">
+        
+        <label style="font-size:0.7rem; font-weight:600; margin-top:15px; display:block;">MOBILE NO</label>
+        <input type="text" placeholder="+92 3XX XXXXXXX">
+        
+        <label style="font-size:0.7rem; font-weight:600; margin-top:15px; display:block;">EMAIL</label>
+        <input type="email" placeholder="name@email.com">
+        
+        <label style="font-size:0.7rem; font-weight:600; margin-top:15px; display:block;">CITY</label>
+        <select><option>Select City</option><option>Lahore</option><option>Karachi</option><option>Islamabad</option><option>Peshawar</option><option>Quetta</option></select>
+        
+        <label style="font-size:0.7rem; font-weight:600; margin-top:15px; display:block;">PAYMENT</label>
+        <select><option>Cash on Delivery</option><option>JazzCash / EasyPaisa</option><option>Bank Transfer</option></select>
+        
+        <button class="btn-main" style="margin-top:30px;" onclick="alert('Success! Your order has been placed. We will call you shortly.')">PLACE PAKISTAN ORDER</button>
+    </div>
 </div>
 
 <script>
@@ -99,26 +121,26 @@
     let products = [];
     const categories = ['Bedroom', 'Kitchen', 'Seasonal', 'Discounted', 'Deals'];
     const names = {
-        'Bedroom': ['Ziarat Bed', 'Indus Side', 'Kaghan Robe', 'Hunza Dress', 'Swat Chair'],
-        'Kitchen': ['Poto Table', 'Marg Stool', 'Bolan Cab', 'Salt Rack', 'Chen Island'],
-        'Seasonal': ['Mur Mantle', 'Nar Bench', 'Kal Set', 'Ayu Chair', 'Ska Trunk'],
-        'Discounted': ['Lah Desk', 'Ravi Table', 'Tax Console', 'Sufi Bench', 'Khy Shelf'],
-        'Deals': ['Meh Mirror', 'Sial Rack', 'Mul Stand', 'Que Chest', 'Gwa Table']
+        'Bedroom': ['Ziarat Oak Bed', 'Indus Nightstand', 'Kaghan Wardrobe', 'Hunza Dresser', 'Swat Armchair'],
+        'Kitchen': ['Potohar Table', 'Margalla Stool', 'Bolan Cabinet', 'Salt Range Rack', 'Chenab Island'],
+        'Seasonal': ['Murree Mantle', 'Naran Bench', 'Kalash Patio', 'Ayubia Rocker', 'Skardu Chest'],
+        'Discounted': ['Lahore Heritage Desk', 'Ravi Side Table', 'Taxila Console', 'Sufi Prayer Seat', 'Khyber Shelf'],
+        'Deals': ['Mehran Wall Mirror', 'Sialkot Shoe Rack', 'Multan Plant Stand', 'Quetta Rug Box', 'Gwadar Coffee Table']
     };
 
-    // Initialize 25 Products with specific IDs for furniture images
+    // Initialize 25 Unique Products
     categories.forEach(cat => {
         names[cat].forEach((name, i) => {
             products.push({
                 id: `${cat}-${i}`,
                 category: cat,
                 name: name,
-                price: 35000 + (i * 5000),
-                stock: 3,
-                // Using reliable Source.Unsplash IDs for furniture
-                img: `https://loremflickr.com/600/600/furniture,wood?random=${cat}${i}`,
-                desc: `Premium ${name} handcrafted with seasoned wood. Built for durability and minimalist elegance. Guaranteed 10-year timber warranty for Pakistan.`,
-                reviews: [{user: "Ahmed", stars: 5, text: "Excellent quality timber!"}]
+                price: 28000 + (Math.random() * 80000),
+                stock: Math.floor(Math.random() * 5) + 1,
+                // Using high-quality furniture images from Unsplash via Source
+                img: `https://loremflickr.com/800/800/furniture,woodwork?random=${cat}${i}`,
+                desc: `The ${name} is a testament to Pakistani craftsmanship. Built from solid Rosewood (Sheesham), it features intricate hand-finished details. A 3-line description of pure quality and minimalist design tailored for your home.`,
+                reviews: [{user: "Bilal K.", stars: 5, text: "Excellent finishing, truly artisan quality."}]
             });
         });
     });
@@ -127,9 +149,10 @@
         const grid = document.getElementById(target);
         grid.innerHTML = list.map(p => `
             <div class="product-card">
-                <img src="${p.img}" onclick="viewProduct('${p.id}')">
+                <img src="${p.img}" onclick="viewProduct('${p.id}')" alt="${p.name}">
                 <div class="product-name">${p.name}</div>
-                <div class="product-price">Rs. ${p.price.toLocaleString()}</div>
+                <div class="product-price">Rs. ${Math.floor(p.price).toLocaleString()}</div>
+                <div style="font-size:0.6rem; color:#888;">Live Stock: ${p.stock}</div>
             </div>
         `).join('');
     }
@@ -138,26 +161,27 @@
         const p = products.find(x => x.id === id);
         const detail = document.getElementById('product-detail-content');
         detail.innerHTML = `
-            <img src="${p.img}" style="width:100%; border-radius:8px;">
-            <h2>${p.name}</h2>
-            <div class="stars">★★★★★ (15 Reviews)</div>
-            <p>${p.desc}</p>
-            <div style="display:flex; gap:10px;">
+            <img src="${p.img}" style="width:100%; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+            <h1 style="font-family:'Playfair Display'; margin-top:20px;">${p.name}</h1>
+            <div class="stars">★★★★★ (Customer Choice)</div>
+            <div class="product-price" style="font-size:1.4rem;">Rs. ${Math.floor(p.price).toLocaleString()}</div>
+            <p style="margin:20px 0; color:#444; font-size:0.95rem;">${p.desc}</p>
+            <div style="display:flex; gap:12px;">
                 <button class="btn-main" onclick="addToCart('${p.id}')">ADD TO CART</button>
-                <button class="btn-alt" onclick="showUpsell()">ADD MORE</button>
+                <button class="btn-alt" onclick="showUpsell()">ADD MORE ITEMS</button>
             </div>
             
             <div class="review-box">
-                <h4>CUSTOMER REVIEWS</h4>
+                <h4 style="margin-top:0;">REVIEWS</h4>
                 <div id="review-list-${p.id}">
-                    ${p.reviews.map(r => `<div class="review-item"><strong>${r.user}</strong>: ${'★'.repeat(r.stars)}<br>${r.text}</div>`).join('')}
+                    ${p.reviews.map(r => `<div class="review-item"><strong>${r.user}</strong> ${'★'.repeat(r.stars)}<br>${r.text}</div>`).join('')}
                 </div>
-                <h5>LEAVE A REVIEW</h5>
-                <div id="star-rating-input">
+                <h5 style="margin-top:25px;">LEAVE A REVIEW</h5>
+                <div id="star-input">
                     <span class="star-input" onclick="setStar(1)">★</span><span class="star-input" onclick="setStar(2)">★</span><span class="star-input" onclick="setStar(3)">★</span><span class="star-input" onclick="setStar(4)">★</span><span class="star-input" onclick="setStar(5)">★</span>
                 </div>
-                <textarea id="rev-text" placeholder="Share your experience..."></textarea>
-                <button class="btn-alt" onclick="postReview('${p.id}')">POST REVIEW</button>
+                <textarea id="rev-text" placeholder="How was your experience with Silva Lignum?"></textarea>
+                <button class="btn-alt" style="width:auto; padding:10px 30px;" onclick="postReview('${p.id}')">POST</button>
             </div>
         `;
         showPage('product-page');
@@ -172,9 +196,9 @@
 
     function postReview(id) {
         const text = document.getElementById('rev-text').value;
-        if(!selectedStars) return alert("Select stars!");
+        if(!selectedStars || !text) return alert("Please provide a rating and a comment.");
         const p = products.find(x => x.id === id);
-        p.reviews.push({user: "Guest User", stars: selectedStars, text: text});
+        p.reviews.unshift({user: "Verified Buyer", stars: selectedStars, text: text});
         viewProduct(id);
     }
 
@@ -182,11 +206,12 @@
         const p = products.find(x => x.id === id);
         cart.push(p);
         updateCartHeader();
+        alert(p.name + " added to your cart!");
     }
 
     function updateCartHeader() {
         const total = cart.reduce((sum, p) => sum + p.price, 0);
-        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
+        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${Math.floor(total).toLocaleString()}`;
     }
 
     function showUpsell() {
@@ -201,13 +226,19 @@
         document.getElementById('sidebar').classList.remove('active');
         if(id === 'checkout') {
             const total = cart.reduce((sum, p) => sum + p.price, 0);
-            document.getElementById('final-summary').innerText = `Items: ${cart.length} | Grand Total: Rs. ${total.toLocaleString()}`;
+            document.getElementById('final-summary').innerText = `SUMMARY: ${cart.length} Items Selected | Payable: Rs. ${Math.floor(total).toLocaleString()}`;
         }
+        window.scrollTo(0,0);
     }
 
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-    function filter(c) { render(c==='All'?products:products.filter(p=>p.category===c), 'main-grid'); showPage('home'); }
+    function filter(c) { 
+        const list = (c === 'All') ? products : products.filter(p => p.category === c);
+        render(list, 'main-grid'); 
+        showPage('home'); 
+    }
 
+    // Initial render
     render(products, 'main-grid');
 </script>
 
