@@ -5,62 +5,236 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silva-Vitrum | Premium Suites</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
-        :root { --white: #ffffff; --black: #111111; --gold: #ae944f; --pkr-green: #006633; --sale-red: #bf1e2e; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); overflow-x: hidden; }
+        :root { 
+            --white: #ffffff; 
+            --black: #000000; 
+            --soft-grey: #fcfcfc;
+            --border: #f0f0f0;
+            --pkr-green: #1a4a36; 
+            --sale-red: #9e1b1b; 
+        }
 
-        /* Navigation */
-        .cart-status { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 5000; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
-        header { background: white; padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: relative; z-index: 4000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 3px; font-weight: 700; cursor: pointer; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            background: var(--white); 
+            color: var(--black); 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation & Header */
+        .cart-status { 
+            background: var(--black); 
+            color: white; 
+            padding: 10px; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 5000; 
+            font-size: 0.65rem; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            font-weight: 200;
+        }
+
+        header { 
+            background: white; 
+            padding: 2rem 1rem; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border); 
+            position: relative; 
+            z-index: 4000; 
+        }
+
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.2rem; 
+            letter-spacing: 4px; 
+            font-weight: 400; 
+            cursor: pointer; 
+        }
         
-        /* Fixed Hamburger Menu */
-        .ham { cursor: pointer; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 25px; height: 18px; display: flex; flex-direction: column; justify-content: space-between; z-index: 5500; }
-        .ham span { display: block; height: 2px; width: 100%; background: black; transition: 0.3s; }
+        /* Sleek Hamburger Menu */
+        .ham { 
+            cursor: pointer; 
+            position: absolute; 
+            left: 30px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            width: 22px; 
+            height: 14px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            z-index: 5500; 
+        }
+        .ham span { display: block; height: 1px; width: 100%; background: black; transition: 0.4s; }
         
-        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 5200; transition: 0.4s ease-in-out; border-right: 1px solid #eee; padding-top: 100px; box-shadow: 10px 0 20px rgba(0,0,0,0.05); }
+        .sidebar { 
+            position: fixed; 
+            left: -100%; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: white; 
+            z-index: 5200; 
+            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 20px 25px; text-decoration: none; color: black; font-size: 0.75rem; border-bottom: 1px solid #f9f9f9; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .sidebar a { 
+            display: block; 
+            padding: 15px; 
+            text-decoration: none; 
+            color: black; 
+            font-size: 1.2rem; 
+            font-family: 'Playfair Display';
+            cursor: pointer; 
+            letter-spacing: 2px;
+        }
 
         /* Splash Page */
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: white; z-index: 9000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.6s; }
-        #splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-        .cta-box { border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 40px 0; width: 100%; text-align: center; cursor: pointer; }
-        .cta-btn { background: none; border: none; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 5px; cursor: pointer; }
+        #splash { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background: var(--white); 
+            z-index: 9000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: 1s ease; 
+        }
+        #splash.hide { opacity: 0; visibility: hidden; }
+        .cta-btn { 
+            background: none; 
+            border: none; 
+            font-size: 0.8rem; 
+            font-weight: 400; 
+            text-transform: uppercase; 
+            letter-spacing: 6px; 
+            cursor: pointer; 
+            padding-bottom: 10px;
+            border-bottom: 1px solid black;
+        }
 
-        /* Grid & Cards */
-        .page { display: none; padding: 20px; max-width: 1100px; margin: auto; animation: fadeIn 0.4s; }
+        /* Sleek Grid & Cards */
+        .page { display: none; padding: 40px 20px; max-width: 1200px; margin: auto; animation: fadeIn 0.8s ease; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { text-align: center; cursor: pointer; margin-bottom: 20px; padding: 30px 10px; border: 1px solid #eee; background: #fafafa; display: flex; flex-direction: column; justify-content: center; min-height: 120px; }
-        .product-name-heading { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--black); }
-        .price-tag { font-size: 0.85rem; font-weight: 600; color: var(--pkr-green); }
-        .old-price { color: var(--sale-red); text-decoration: line-through; font-size: 0.7rem; margin-right: 5px; }
-
-        /* Navigation Buttons */
-        .back-nav { display: block; margin-bottom: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #888; cursor: pointer; border: none; background: none; padding: 0; text-align: left; }
-        .back-nav:hover { color: var(--black); }
-
-        /* UI Buttons */
-        .primary-btn { background: var(--black); color: white; border: none; padding: 18px; width: 100%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 10px; }
-        .secondary-btn { background: #eee; color: black; border: none; padding: 18px; width: 100%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .card { 
+            text-align: left; 
+            cursor: pointer; 
+            transition: 0.4s;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 10px;
+        }
+        .card:hover { border-bottom: 1px solid var(--black); }
         
-        input, select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; font-family: 'Montserrat'; font-size: 0.9rem; box-sizing: border-box; }
-        .sec-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.5rem; margin-bottom: 30px; }
+        .product-name-heading { 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            margin: 15px 0 5px 0;
+            color: var(--black); 
+        }
+        .price-tag { 
+            font-size: 0.8rem; 
+            font-weight: 400; 
+            color: #555; 
+        }
+        .old-price { color: #aaa; text-decoration: line-through; font-size: 0.7rem; margin-right: 8px; }
+
+        /* Navigation & Buttons */
+        .back-nav { 
+            display: inline-block; 
+            margin-bottom: 30px; 
+            font-size: 0.6rem; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: #000; 
+            cursor: pointer; 
+            border: none; 
+            background: none; 
+            padding: 0;
+        }
+
+        .primary-btn { 
+            background: var(--black); 
+            color: white; 
+            border: none; 
+            padding: 22px; 
+            width: 100%; 
+            font-size: 0.7rem; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            transition: 0.3s;
+        }
+        .primary-btn:hover { opacity: 0.8; }
+        
+        .secondary-btn { 
+            background: transparent; 
+            color: black; 
+            border: 1px solid black; 
+            padding: 20px; 
+            width: 100%; 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            margin-top: 10px; 
+            letter-spacing: 2px;
+        }
+
+        .clear-btn { 
+            color: var(--sale-red); 
+            background: none; 
+            border: none; 
+            font-size: 0.6rem; 
+            letter-spacing: 1px; 
+            cursor: pointer; 
+            text-decoration: underline;
+        }
+        
+        input, select { 
+            width: 100%; 
+            padding: 20px 0; 
+            margin-bottom: 10px; 
+            border: none; 
+            border-bottom: 1px solid #ddd; 
+            font-family: 'Montserrat'; 
+            font-size: 0.8rem; 
+            outline: none;
+        }
+
+        .sec-title { 
+            font-family: 'Playfair Display'; 
+            text-align: center; 
+            font-size: 2rem; 
+            margin-bottom: 50px; 
+            font-weight: 400;
+        }
     </style>
 </head>
 <body>
 
 <div id="splash">
-    <div class="cta-box" onclick="closeSplash()">
-        <button class="cta-btn">→ WHAT ARE U WAITING FOR?</button>
-    </div>
+    <button class="cta-btn" onclick="closeSplash()">Enter Silva-Vitrum</button>
 </div>
 
-<div class="cart-status" id="cart-text">CART: 0 ITEMS | RS. 0</div>
+<div class="cart-status" id="cart-text">BAG: 0 ITEMS | RS. 0</div>
 
 <header>
     <div class="ham" onclick="toggleMenu()">
@@ -70,81 +244,81 @@
 </header>
 
 <div class="sidebar" id="sidebar">
-    <a onclick="filterItems('All')">All Collections</a>
-    <a onclick="filterItems('Bedroom')">Bedroom Suites</a>
-    <a onclick="filterItems('Kitchen')">Kitchen Suites</a>
+    <a onclick="filterItems('All')">The Collection</a>
+    <a onclick="filterItems('Bedroom')">Bedroom</a>
+    <a onclick="filterItems('Kitchen')">Kitchen</a>
     <a onclick="filterItems('Seasonal')">Seasonal</a>
-    <a onclick="filterItems('Discounted')">30% Off Sale</a>
-    <a onclick="showPage('checkout')">My Checkout</a>
+    <a onclick="filterItems('Discounted')">Private Sale</a>
+    <a onclick="showPage('checkout')">Checkout</a>
 </div>
 
 <div id="home" class="page active">
-    <h2 class="sec-title">Artisan Suite</h2>
+    <h2 class="sec-title">Selected Works</h2>
     <div class="grid" id="main-grid"></div>
 </div>
 
 <div id="details" class="page">
-    <button class="back-nav" onclick="showPage('home')">← Back to Shop</button>
+    <button class="back-nav" onclick="showPage('home')">← RETURN TO SHOP</button>
     <div id="detail-content"></div>
 </div>
 
 <div id="suggestions" class="page">
-    <button class="back-nav" onclick="showPage('home')">← Back to Shop</button>
-    <h2 class="sec-title">Shop More</h2>
-    <p style="text-align:center; font-size:0.8rem; margin-bottom:20px;">Add these matching items to your order:</p>
+    <button class="back-nav" onclick="showPage('home')">← RETURN TO SHOP</button>
+    <h2 class="sec-title">The Ensemble</h2>
+    <p style="text-align:center; font-size:0.7rem; margin-bottom:40px; letter-spacing:1px; color:#888;">MATCHING PIECES FOR YOUR INTERIOR</p>
     <div class="grid" id="suggest-grid"></div>
-    <div style="margin-top:30px;">
-        <button class="primary-btn" onclick="showPage('checkout')">BUY NOW</button>
-        <button class="secondary-btn" onclick="showPage('home')">BACK TO SHOP</button>
+    <div style="margin-top:40px;">
+        <button class="primary-btn" onclick="showPage('checkout')">CHECKOUT NOW</button>
+        <button class="secondary-btn" onclick="showPage('home')">ADD MORE PIECES</button>
     </div>
 </div>
 
 <div id="checkout" class="page">
-    <button class="back-nav" onclick="showPage('home')">← Back to Shop</button>
-    <h2 class="sec-title">Checkout Details</h2>
-    <div id="final-summary" style="padding:15px; background:#f9f9f9; margin-bottom:20px; font-size:0.8rem;"></div>
-    <input type="text" placeholder="Your Full Name">
-    <input type="text" placeholder="Shipping Address & City">
-    <input type="tel" placeholder="WhatsApp Phone Number">
-    <input type="email" placeholder="Email Address">
+    <button class="back-nav" onclick="showPage('home')">← RETURN TO SHOP</button>
+    <h2 class="sec-title">Order Request</h2>
+    <div id="final-summary" style="padding:20px 0; border-top:1px solid #eee; margin-bottom:20px; font-size:0.75rem; line-height:1.8;"></div>
+    
+    <div style="text-align:right;">
+        <button class="clear-btn" onclick="clearCart()">Empty Cart</button>
+    </div>
+
+    <input type="text" placeholder="FULL NAME">
+    <input type="text" placeholder="SHIPPING ADDRESS">
+    <input type="tel" placeholder="WHATSAPP NUMBER">
+    <input type="email" placeholder="EMAIL (OPTIONAL)">
     <select>
-        <option disabled selected>Payment Method</option>
-        <option>Bank Transfer (HBL/UBL)</option>
-        <option>EasyPaisa / JazzCash</option>
+        <option disabled selected>PAYMENT METHOD</option>
+        <option>Bank Transfer</option>
+        <option>Digital Wallet (EasyPaisa/JazzCash)</option>
         <option>Cash on Delivery</option>
     </select>
-    <button class="primary-btn" onclick="alert('Order Sent! Our team will contact you on WhatsApp.'); location.reload();">COMPLETE ORDER</button>
+    <button class="primary-btn" onclick="alert('Inquiry Sent Successfully.'); location.reload();">SEND ORDER INQUIRY</button>
 </div>
 
 <script>
     let cart = [];
     const products = [
-        { id: 1, cat: 'Bedroom', name: 'Royal haven bedroom suite', price: 180000 },
-        { id: 2, cat: 'Bedroom', name: 'Midnight Luxe bedroom collection', price: 210000 },
-        { id: 3, cat: 'Bedroom', name: 'Serene oak retreat bedroom set', price: 165000 },
-        { id: 4, cat: 'Kitchen', name: 'Golden crest kitchen suite', price: 120000 },
-        { id: 5, cat: 'Kitchen', name: 'Urban Noir kitchen collection', price: 145000 },
-        { id: 6, cat: 'Kitchen', name: 'Pure Haven kitchen set', price: 110000 },
-        { id: 7, cat: 'Seasonal', name: 'Golden breeze collection', price: 55000 },
-        { id: 8, cat: 'Seasonal', name: 'Frost haven collection', price: 65000 },
-        { id: 9, cat: 'Seasonal', name: 'Bloom aura collection', price: 48000 },
-        { id: 10, cat: 'Discounted', name: 'Bargain haven', price: 70000, sale: true },
-        { id: 11, cat: 'Discounted', name: 'Deal depot', price: 56000, sale: true },
-        { id: 12, cat: 'Discounted', name: 'Hot picks sale', price: 49000, sale: true },
-        { id: 13, cat: 'Deals', name: 'Perfect pair deals', price: 250000 },
-        { id: 14, cat: 'Deals', name: 'Duo delight collection', price: 220000 },
-        { id: 15, cat: 'Deals', name: 'Twin treasure deals', price: 275000 }
+        { id: 1, cat: 'Bedroom', name: 'Royal Haven Suite', price: 180000 },
+        { id: 2, cat: 'Bedroom', name: 'Midnight Luxe Collection', price: 210000 },
+        { id: 3, cat: 'Bedroom', name: 'Serene Oak Retreat', price: 165000 },
+        { id: 4, cat: 'Kitchen', name: 'Golden Crest Suite', price: 120000 },
+        { id: 5, cat: 'Kitchen', name: 'Urban Noir Collection', price: 145000 },
+        { id: 6, cat: 'Kitchen', name: 'Pure Haven Set', price: 110000 },
+        { id: 10, cat: 'Discounted', name: 'Bargain Haven', price: 70000, sale: true },
+        { id: 11, cat: 'Discounted', name: 'Deal Depot Piece', price: 56000, sale: true },
+        { id: 13, cat: 'Deals', name: 'Perfect Pair Deal', price: 250000 }
     ];
 
     function renderProducts(list = products) {
         document.getElementById('main-grid').innerHTML = list.map(p => {
-            let priceHtml = `Rs. ${p.price.toLocaleString()}`;
+            let priceHtml = `RS. ${p.price.toLocaleString()}`;
             if(p.sale) {
                 const old = Math.round(p.price / 0.7);
-                priceHtml = `<span class="old-price">Rs.${old.toLocaleString()}</span> Rs.${p.price.toLocaleString()}`;
+                priceHtml = `<span class="old-price">RS. ${old.toLocaleString()}</span> RS. ${p.price.toLocaleString()}`;
             }
             return `
             <div class="card" onclick="openDetails(${p.id})">
+                <div style="background:#f9f9f9; height:150px; width:100%; border-radius:2px;"></div>
                 <div class="product-name-heading">${p.name}</div>
                 <div class="price-tag">${priceHtml}</div>
             </div>`;
@@ -154,14 +328,14 @@
     function openDetails(id) {
         const p = products.find(x => x.id === id);
         document.getElementById('detail-content').innerHTML = `
-            <div style="background:#f4f4f4; padding:50px 20px; text-align:center; margin-bottom:20px; border:1px solid #eee;">
-                <h1 style="font-family:'Playfair Display'; text-transform:uppercase;">${p.name}</h1>
+            <div style="background:#fafafa; padding:80px 20px; text-align:center; margin-bottom:40px;">
+                <h1 style="font-family:'Playfair Display'; font-weight:400; font-style:italic;">${p.name}</h1>
             </div>
-            <h2 style="text-transform:uppercase;">${p.name}</h2>
-            <div class="price-tag" style="font-size:1.2rem;">Rs. ${p.price.toLocaleString()}</div>
-            <p style="font-size:0.85rem; color:#666; margin:20px 0;">Premium handcrafted furniture from the heart of Gujrat. Designed for durability and elegance.</p>
-            <button class="primary-btn" onclick="addToCart(${p.id})">ADD TO SUITE</button>
-            <button class="secondary-btn" onclick="showPage('home')">BACK TO SHOP</button>
+            <p style="font-size:0.6rem; letter-spacing:2px; color:#888; margin-bottom:10px;">OBJECT NO. ${p.id}00${p.id}</p>
+            <h2 style="font-family:'Playfair Display'; font-size:1.8rem; margin:0 0 10px 0; font-weight:400;">${p.name}</h2>
+            <div class="price-tag" style="font-size:1rem; color:black;">RS. ${p.price.toLocaleString()}</div>
+            <p style="font-size:0.8rem; color:#666; line-height:1.8; margin:30px 0;">Hand-finished in Gujrat using premium artisan techniques. This piece represents the pinnacle of contemporary Silva-Vitrum design.</p>
+            <button class="primary-btn" onclick="addToCart(${p.id})">ADD TO CART</button>
         `;
         showPage('details');
     }
@@ -173,10 +347,11 @@
         
         const related = products.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4);
         document.getElementById('suggest-grid').innerHTML = related.map(s => `
-            <div class="card" style="min-height:100px; padding:15px;">
-                <div style="font-size:0.6rem; text-transform:uppercase; margin-bottom:5px;">${s.name}</div>
-                <div class="price-tag" style="font-size:0.7rem; margin-bottom:10px;">Rs.${s.price.toLocaleString()}</div>
-                <button class="secondary-btn" style="padding:8px; font-size:0.6rem; margin-top:auto;" onclick="silentAdd(${s.id}, this)">+ ADD ALSO</button>
+            <div class="card">
+                <div style="background:#f9f9f9; height:100px; width:100%;"></div>
+                <div style="font-size:0.6rem; font-weight:600; text-transform:uppercase; margin:10px 0 5px 0;">${s.name}</div>
+                <div class="price-tag" style="font-size:0.7rem; margin-bottom:15px;">RS. ${s.price.toLocaleString()}</div>
+                <button class="secondary-btn" style="padding:12px; font-size:0.55rem;" onclick="silentAdd(${s.id}, this)">+ ADD TO ENSEMBLE</button>
             </div>`).join('');
         
         showPage('suggestions');
@@ -186,14 +361,23 @@
         const p = products.find(x => x.id === id);
         cart.push(p);
         updateCartUI();
-        btn.innerText = "ADDED ✅";
-        btn.style.background = "#d4edda";
+        btn.innerText = "ADDED TO CART";
+        btn.style.background = "#000";
+        btn.style.color = "#fff";
+    }
+
+    function clearCart() {
+        if(confirm("Empty bag?")) {
+            cart = [];
+            updateCartUI();
+            showPage('home');
+        }
     }
 
     function updateCartUI() {
         const total = cart.reduce((sum, p) => sum + p.price, 0);
-        document.getElementById('cart-text').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
-        document.getElementById('final-summary').innerHTML = `<strong>Items in Suite:</strong> ${cart.length} <br> <strong>Grand Total:</strong> Rs. ${total.toLocaleString()}`;
+        document.getElementById('cart-text').innerText = `BAG: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
+        document.getElementById('final-summary').innerHTML = `<strong>Items:</strong> ${cart.length} pieces <br> <strong>Total Value:</strong> Rs. ${total.toLocaleString()}`;
     }
 
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
