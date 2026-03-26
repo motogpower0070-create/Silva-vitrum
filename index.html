@@ -8,130 +8,159 @@
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&display=swap');
 
         :root { 
-            --gold: #D4AF37; /* True Metallic Gold */
+            --gold: #D4AF37; 
             --bg: #0a0a0a; 
             --card-bg: #111;
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
         body { 
-            font-family: 'Cinzel', serif; 
-            margin: 0; 
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0);
-            background-size: 30px 30px;
-            color: var(--gold); 
-            overflow-x: hidden;
+            font-family: 'Cinzel', serif; margin: 0; background-color: var(--bg);
+            color: var(--gold); overflow-x: hidden;
         }
 
-        /* Animations */
-        .fade-in { animation: fadeIn 0.8s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Smooth Page Transitions */
+        .page { display: none; opacity: 0; transform: translateY(20px); transition: var(--transition); padding: 20px; max-width: 1200px; margin: auto; }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
 
         header { 
-            background: rgba(0,0,0,0.95); 
-            padding: 1.5rem; 
-            text-align: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            border-bottom: 1px solid var(--gold); 
+            background: rgba(0,0,0,0.98); padding: 0.8rem; text-align: center; 
+            position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--gold); 
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
 
-        /* Hamburger Menu (Top Left) */
-        .menu-btn { 
-            position: absolute; left: 20px; top: 25px; 
-            cursor: pointer; background: none; border: none; 
-            display: flex; flex-direction: column; gap: 5px;
+        .header-top { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Hamburger Animation */
+        .ham { cursor: pointer; padding: 5px; z-index: 1100; width: 25px; height: 18px; position: relative; }
+        .ham span { display: block; position: absolute; height: 2px; width: 100%; background: var(--gold); transition: .3s ease; }
+        .ham span:nth-child(1) { top: 0px; }
+        .ham span:nth-child(2) { top: 8px; }
+        .ham span:nth-child(3) { top: 16px; }
+        .ham.open span:nth-child(1) { top: 8px; transform: rotate(135deg); }
+        .ham.open span:nth-child(2) { opacity: 0; }
+        .ham.open span:nth-child(3) { top: 8px; transform: rotate(-135deg); }
+
+        .logo { font-family: 'Great Vibes', cursive; font-size: 1.6rem; margin: 0; color: var(--gold); }
+
+        .search-box { width: 90%; max-width: 400px; position: relative; }
+        #search { 
+            width: 100%; background: #000; border: 1px solid #333; color: var(--gold); 
+            padding: 8px 15px; border-radius: 20px; outline: none; font-family: 'Cinzel'; font-size: 0.7rem;
         }
-        .menu-btn span { width: 25px; height: 2px; background: var(--gold); transition: 0.3s; }
 
-        .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin: 0; color: var(--gold); }
-
-        /* Sidebar */
-        .sidebar { 
-            position: fixed; left: -300px; top: 0; width: 260px; height: 100%; 
-            background: #000; z-index: 1000; transition: 0.4s; padding-top: 60px;
-            border-right: 1px solid var(--gold);
+        /* WhatsApp Floating Button */
+        .wa-float {
+            position: fixed; bottom: 90px; right: 20px; background: #25D366; color: white;
+            width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 3000;
+            text-decoration: none;
         }
-        .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 15px 25px; color: var(--gold); text-decoration: none; font-size: 1rem; border-bottom: 1px solid #222; }
-        .sidebar a:hover { background: var(--gold); color: #000; }
-
-        /* Sections */
-        .content-section { display: none; padding: 20px; max-width: 1200px; margin: auto; }
-        .content-section.active { display: block; }
 
         /* 2-Column Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { background: var(--card-bg); border: 1px solid #222; overflow: hidden; position: relative; }
-        .card img { width: 100%; height: 200px; object-fit: cover; filter: brightness(0.7); transition: 0.5s; }
-        .card:hover img { filter: brightness(1); transform: scale(1.05); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { background: var(--card-bg); border: 1px solid #1a1a1a; padding-bottom: 10px; cursor: pointer; }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
         .info { padding: 10px; text-align: center; }
-        .info h3 { font-size: 0.8rem; margin: 5px 0; text-transform: uppercase; }
-        .price { font-weight: bold; font-size: 0.9rem; }
+        .info h3 { font-size: 0.6rem; color: #fff; margin: 5px 0; }
+        .price { font-size: 0.75rem; color: var(--gold); display: block; }
+        
+        /* Modal & Reviews */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; z-index: 4000; overflow-y: auto; padding-top: 50px; }
+        .modal-content { background: #000; width: 90%; margin: auto; border: 1px solid var(--gold); padding: 20px; position: relative; }
+        .specs { font-size: 0.7rem; color: #888; border-top: 1px solid #222; margin-top: 15px; padding-top: 10px; }
+        
+        .review-section { margin-top: 20px; text-align: left; }
+        .stars { color: var(--gold); cursor: pointer; font-size: 1.2rem; }
+        #review-input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 10px; margin-top: 10px; font-family: sans-serif; }
+        .review-display { border-bottom: 1px solid #222; padding: 10px 0; font-size: 0.7rem; }
 
-        /* About Text */
-        .about-text { font-family: 'Great Vibes', cursive; font-size: 1.8rem; text-align: center; line-height: 1.6; padding: 40px 20px; }
-
-        /* Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #000; width: 100%; max-width: 400px; border: 1px solid var(--gold); padding: 20px; text-align: center; }
-        .wa-btn { background: var(--gold); color: #000; padding: 12px; display: block; text-decoration: none; font-weight: bold; margin-top: 20px; }
+        .cart-popup { position: fixed; bottom: -80px; left: 0; width: 100%; background: var(--gold); color: #000; padding: 18px; text-align: center; font-weight: bold; transition: 0.5s; z-index: 2000; display: flex; justify-content: space-around; }
+        .cart-popup.show { bottom: 0; }
     </style>
 </head>
 <body>
 
 <header>
-    <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
-    <h1 class="logo">Silva Lignum</h1>
+    <div class="header-top">
+        <div class="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <h1 class="logo">Silva Lignum</h1>
+        <div style="width: 30px;"></div>
+    </div>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="SEARCH PIECES..." onkeyup="searchItems()">
+    </div>
 </header>
 
-<div class="sidebar" id="sidebar">
-    <a onclick="showPage('shop')">Shop All</a>
-    <a onclick="showPage('about')">Our Story</a>
-    <hr style="border: 0.5px solid #222;">
-    <a onclick="filter('Bedroom')">Bedrooms</a>
-    <a onclick="filter('Kitchen')">Kitchens</a>
-    <a onclick="filter('Deals')">Exclusive Deals</a>
-    <a onclick="filter('Discounted')">Clearance</a>
-    <a onclick="filter('Seasonal')">Seasonal</a>
+<div class="sidebar" id="sidebar" style="position: fixed; left: -100%; top: 0; width: 80%; height: 100%; background: #000; z-index: 1000; transition: 0.4s; padding-top: 100px; border-right: 1px solid var(--gold);">
+    <a onclick="showPage('home')" style="display: block; padding: 18px 30px; color: var(--gold); text-decoration: none;">SHOP ALL</a>
+    <a onclick="showPage('about')" style="display: block; padding: 18px 30px; color: var(--gold); text-decoration: none;">OUR STORY</a>
+    <a onclick="filter('Bedroom')" style="display: block; padding: 18px 30px; color: var(--gold); text-decoration: none;">BEDROOMS</a>
+    <a onclick="filter('Kitchen')" style="display: block; padding: 18px 30px; color: var(--gold); text-decoration: none;">KITCHENS</a>
 </div>
 
-<div id="about" class="content-section fade-in">
-    <div class="about-text">
-        "Every piece of timber holds a soul. At Silva Lignum, we don't just build furniture; we preserve the legacy of the forest in a dance of shadow and gold."
-    </div>
-</div>
+<a href="https://wa.me/920000000000" class="wa-float" target="_blank">WP</a>
 
-<div id="shop" class="content-section active fade-in">
-    <h2 id="view-title" style="text-align:center; text-transform:uppercase; letter-spacing:3px;">The Gallery</h2>
+<div id="home" class="page active">
     <div class="grid" id="product-grid"></div>
 </div>
 
-<div class="modal" id="modal" onclick="closeModal()">
+<div id="about" class="page">
+    <div style="font-family:'Great Vibes'; font-size: 2rem; text-align:center; padding: 40px 0;">"Legacy in every Grain"</div>
+    <p style="text-align:center; font-size:0.8rem; color:#888;">Handcrafted in Pakistan. We use Premium Sheesham and Walnut wood finished with 24k gold leaf accents.</p>
+</div>
+
+<div id="cart-page" class="page">
+    <h2 style="text-align:center;">YOUR CART</h2>
+    <div id="cart-items-list"></div>
+    <div id="total-price" style="text-align:right; font-size: 1.2rem; margin-top:20px;"></div>
+    <button style="width:100%; background:var(--gold); padding:15px; border:none; margin-top:20px;" onclick="alert('Proceeding to Checkout')">PAY NOW</button>
+</div>
+
+<div id="modal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <img id="m-img" src="" style="width:100%;">
-        <h2 id="m-name" style="font-family:'Great Vibes'; font-size: 2rem;"></h2>
-        <p id="m-price"></p>
-        <a id="m-wa" href="" class="wa-btn" target="_blank">INQUIRE (PKR)</a>
+        <h2 id="m-name" style="font-family:'Great Vibes';"></h2>
+        <p id="m-price" style="color:var(--gold);"></p>
+        <div class="specs">
+            Material: Solid Walnut & Gold Leaf<br>
+            Warranty: 5 Year Structural<br>
+            Shipping: Free across Pakistan
+        </div>
+        
+        <div class="review-section">
+            <h4>CUSTOMER REVIEWS</h4>
+            <div id="review-list"></div>
+            <div style="margin-top:20px;">
+                <span class="stars" onclick="setRating(1)">★</span><span class="stars" onclick="setRating(2)">★</span><span class="stars" onclick="setRating(3)">★</span><span class="stars" onclick="setRating(4)">★</span><span class="stars" onclick="setRating(5)">★</span>
+                <input type="text" id="review-input" placeholder="Write a review...">
+                <button onclick="submitReview()" style="background:var(--gold); border:none; padding:10px; margin-top:10px; width:100%;">POST REVIEW</button>
+            </div>
+        </div>
+        <button onclick="addToCartFromModal()" style="width:100%; border:1px solid var(--gold); color:var(--gold); background:none; padding:15px; margin-top:20px;">ADD TO CART</button>
+        <p onclick="closeModal()" style="color:#555; font-size:0.7rem; margin-top:20px;">CLOSE</p>
     </div>
 </div>
 
+<div id="cart-popup" class="cart-popup" onclick="showPage('cart-page')">
+    <span id="popup-text">0 ITEMS</span>
+    <span>CHECKOUT →</span>
+</div>
+
 <script>
-    const demoWA = "920000000000";
-
-    // Generating 10 products per category (50 total)
-    const categories = ["Bedroom", "Kitchen", "Deals", "Discounted", "Seasonal"];
+    let cart = [];
+    let currentProductId = null;
+    let currentRating = 5;
     const products = [];
+    const reviews = {}; // Stores reviews by product ID
 
-    categories.forEach(cat => {
+    // Setup 50 products
+    const cats = ["Bedroom", "Kitchen", "Seasonal", "Discounted", "Deals"];
+    cats.forEach(c => {
         for(let i=1; i<=10; i++) {
-            products.push({
-                category: cat,
-                name: `${cat} Piece No. ${i}`,
-                price: `Rs. ${Math.floor(Math.random() * 500000) + 20000}`,
-                img: `https://picsum.photos/400/400?random=${cat}${i}` // Random furniture-style placeholders
-            });
+            let id = `${c}-${i}`;
+            products.push({ id, category: c, name: `${c} Elite ${i}`, price: Math.floor(Math.random()*400000)+20000, img: `https://picsum.photos/400/400?random=${id}` });
+            reviews[id] = [{rating: 5, text: "Absolutely stunning craftsmanship!"}];
         }
     });
 
@@ -139,38 +168,95 @@
         const grid = document.getElementById('product-grid');
         grid.innerHTML = '';
         list.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.onclick = () => openModal(p);
-            card.innerHTML = `<img src="${p.img}"><div class="info"><h3>${p.name}</h3><p class="price">${p.price}</p></div>`;
-            grid.appendChild(card);
+            grid.innerHTML += `
+                <div class="card" onclick="openModal('${p.id}')">
+                    <img src="${p.img}">
+                    <div class="info">
+                        <h3>${p.name}</h3>
+                        <span class="price">Rs. ${p.price.toLocaleString()}</span>
+                    </div>
+                </div>`;
         });
     }
 
-    function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-
-    function showPage(pageId) {
-        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        toggleMenu();
+    function toggleMenu() {
+        const s = document.getElementById('sidebar');
+        s.style.left = s.style.left === '0px' ? '-100%' : '0px';
+        document.querySelector('.ham').classList.toggle('open');
     }
 
-    function filter(cat) {
-        showPage('shop');
-        document.getElementById('view-title').innerText = cat;
-        const filtered = products.filter(p => p.category === cat);
-        renderProducts(filtered);
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(id);
+        target.style.display = 'block';
+        setTimeout(() => target.classList.add('active'), 50);
+        if(id === 'cart-page') renderCart();
+        window.scrollTo(0,0);
     }
 
-    function openModal(p) {
+    function openModal(id) {
+        currentProductId = id;
+        const p = products.find(x => x.id === id);
         document.getElementById('m-img').src = p.img;
         document.getElementById('m-name').innerText = p.name;
-        document.getElementById('m-price').innerText = p.price;
-        document.getElementById('m-wa').href = `https://wa.me/${demoWA}?text=Inquiry: ${p.name}`;
-        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('m-price').innerText = `Rs. ${p.price.toLocaleString()}`;
+        renderReviews();
+        document.getElementById('modal').style.display = 'block';
     }
 
     function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+    function setRating(n) {
+        currentRating = n;
+        const stars = document.querySelectorAll('.stars');
+        stars.forEach((s, i) => s.style.color = i < n ? '#D4AF37' : '#333');
+    }
+
+    function submitReview() {
+        const txt = document.getElementById('review-input').value;
+        if(!txt) return;
+        reviews[currentProductId].push({rating: currentRating, text: txt});
+        document.getElementById('review-input').value = '';
+        renderReviews();
+    }
+
+    function renderReviews() {
+        const list = document.getElementById('review-list');
+        list.innerHTML = '';
+        reviews[currentProductId].forEach(r => {
+            list.innerHTML += `<div class="review-display"><span style="color:var(--gold)">${'★'.repeat(r.rating)}</span><br>${r.text}</div>`;
+        });
+    }
+
+    function addToCartFromModal() {
+        const p = products.find(x => x.id === currentProductId);
+        cart.push({...p, cartId: Date.now()});
+        document.getElementById('popup-text').innerText = `${cart.length} ITEM(S)`;
+        document.getElementById('cart-popup').classList.add('show');
+        closeModal();
+    }
+
+    function renderCart() {
+        const list = document.getElementById('cart-items-list');
+        list.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price;
+            list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #222;"><span>${item.name}</span><span>Rs. ${item.price.toLocaleString()}</span></div>`;
+        });
+        document.getElementById('total-price').innerText = `TOTAL: RS. ${total.toLocaleString()}`;
+    }
+
+    function searchItems() {
+        const q = document.getElementById('search').value.toLowerCase();
+        renderProducts(products.filter(p => p.name.toLowerCase().includes(q)));
+    }
+
+    function filter(c) {
+        renderProducts(products.filter(p => p.category === c));
+        showPage('home');
+        toggleMenu();
+    }
 
     renderProducts();
 </script>
