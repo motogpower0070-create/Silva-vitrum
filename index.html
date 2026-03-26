@@ -7,66 +7,65 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
-        :root { --white: #ffffff; --black: #1a1a1a; --accent: #f4f4f4; --pkr-green: #006633; }
+        :root { --white: #ffffff; --black: #1a1a1a; --accent: #f4f4f4; --gold: #ae944f; --pkr-green: #006633; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); line-height: 1.6; }
 
-        /* Header & Search */
-        header { background: white; padding: 1.5rem 1rem; text-align: center; border-bottom: 1px solid var(--accent); sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 3px; margin-bottom: 15px; cursor: pointer; }
-        #search { width: 90%; max-width: 500px; padding: 12px; border: 1px solid #ddd; outline: none; font-family: 'Montserrat'; text-align: center; }
-
-        /* Menu */
-        .ham { cursor: pointer; position: absolute; left: 20px; top: 35px; width: 25px; }
+        /* Fixed Cart Header */
+        .cart-status-bar { background: var(--black); color: white; padding: 10px; text-align: center; position: sticky; top: 0; z-index: 1100; font-size: 0.7rem; letter-spacing: 1px; }
+        
+        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 3px; cursor: pointer; }
+        
+        .ham { cursor: pointer; position: absolute; left: 20px; top: 55px; width: 25px; }
         .ham span { display: block; height: 2px; background: black; margin-bottom: 5px; }
+
         .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.4s; border-right: 1px solid #eee; padding-top: 60px; }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 15px 25px; text-decoration: none; color: black; font-size: 0.8rem; letter-spacing: 1px; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .sidebar a { display: block; padding: 15px 25px; text-decoration: none; color: black; font-size: 0.8rem; cursor: pointer; border-bottom: 1px solid #f9f9f9; }
 
-        /* Grid System */
-        .page { display: none; padding: 20px; animation: fadeIn 0.5s; }
+        /* Grid */
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .product-card { text-align: center; margin-bottom: 25px; }
-        .product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; cursor: pointer; transition: 0.3s; }
-        .product-card img:hover { opacity: 0.8; }
-        .product-name { font-size: 0.75rem; font-weight: 600; margin: 10px 0 5px; text-transform: uppercase; }
-        .product-price { font-size: 0.8rem; color: #555; }
-
-        /* Detail Page */
-        .detail-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; }
-        .description { font-size: 0.9rem; margin: 20px 0; color: #444; border-left: 3px solid var(--black); padding-left: 15px; }
-        .btn-container { display: flex; gap: 10px; margin-top: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-card { text-align: center; margin-bottom: 20px; }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 4px; cursor: pointer; background: #eee; }
+        
+        /* Star Rating */
+        .stars { color: var(--gold); font-size: 0.8rem; margin: 5px 0; }
+        .star-input { font-size: 1.5rem; cursor: pointer; color: #ccc; }
+        .star-input.selected { color: var(--gold); }
 
         /* Buttons */
-        .btn-main { background: var(--black); color: white; border: none; padding: 15px 20px; font-size: 0.7rem; font-weight: 600; cursor: pointer; flex: 1; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-alt { background: white; color: var(--black); border: 1px solid var(--black); padding: 15px 20px; font-size: 0.7rem; font-weight: 600; cursor: pointer; flex: 1; text-transform: uppercase; }
+        .btn-main { background: var(--black); color: white; border: none; padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-alt { background: white; color: var(--black); border: 1px solid var(--black); padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
 
-        /* Checkout Form */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.7rem; margin-bottom: 5px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; font-family: 'Montserrat'; box-sizing: border-box; }
+        /* Review Section */
+        .review-box { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .review-item { font-size: 0.75rem; background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
 
-        .stock-label { font-size: 0.65rem; color: var(--pkr-green); font-weight: bold; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #ddd; font-family: 'Montserrat'; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
+<div class="cart-status-bar" id="cart-status">
+    CART: 0 ITEMS | TOTAL: RS. 0
+</div>
+
 <header>
     <div class="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     <div class="logo" onclick="showPage('home')">Silva Lignum</div>
-    <input type="text" id="search" placeholder="Search furniture in Pakistan..." onkeyup="searchItems()">
 </header>
 
 <div class="sidebar" id="sidebar">
     <a onclick="filter('All')">ALL PRODUCTS</a>
-    <a onclick="filter('Bedroom')">BEDROOM</a>
-    <a onclick="filter('Kitchen')">KITCHEN</a>
-    <a onclick="filter('Seasonal')">SEASONAL ITEMS</a>
-    <a onclick="filter('Discounted')">DISCOUNTED</a>
-    <a onclick="filter('Deals')">EXCLUSIVE DEALS</a>
-    <a onclick="toggleWholesale()">WHOLESALE BULK</a>
+    <a onclick="filter('Bedroom')">BEDROOM (5)</a>
+    <a onclick="filter('Kitchen')">KITCHEN (5)</a>
+    <a onclick="filter('Seasonal')">SEASONAL (5)</a>
+    <a onclick="filter('Discounted')">DISCOUNTED (5)</a>
+    <a onclick="filter('Deals')">DEALS (5)</a>
 </div>
 
 <div id="home" class="page active">
@@ -74,136 +73,141 @@
 </div>
 
 <div id="product-page" class="page">
-    <button class="btn-alt" style="margin-bottom:20px; width:auto;" onclick="showPage('home')">← BACK</button>
+    <button class="btn-alt" style="width:auto; margin-bottom:20px;" onclick="showPage('home')">← BACK</button>
     <div id="product-detail-content"></div>
 </div>
 
 <div id="add-more-page" class="page">
-    <h2 style="text-align:center; font-family:'Playfair Display';">Complete Your Set</h2>
-    <p style="text-align:center; font-size:0.8rem; margin-bottom:30px;">Customers usually pair their choice with these items:</p>
+    <h3 style="text-align:center;">PEOPLE ALSO BOUGHT</h3>
     <div class="grid" id="upsell-grid"></div>
-    <button class="btn-main" style="width:100%; margin-top:40px; padding:25px;" onclick="showPage('checkout')">BUY ALL NOW</button>
+    <button class="btn-main" onclick="showPage('checkout')">PROCEED TO BUY NOW</button>
 </div>
 
 <div id="checkout" class="page">
-    <h2 style="text-align:center; font-family:'Playfair Display';">Order Details (Pakistan Only)</h2>
-    <div class="form-group">
-        <label>FULL NAME</label>
-        <input type="text" placeholder="Enter your name">
-    </div>
-    <div class="form-group">
-        <label>WHATSAPP / MOBILE NO</label>
-        <input type="text" placeholder="+92 3XX XXXXXXX">
-    </div>
-    <div class="form-group">
-        <label>EMAIL ADDRESS</label>
-        <input type="email" placeholder="email@example.pk">
-    </div>
-    <div class="form-group">
-        <label>SHIPPING LOCATION (CITY)</label>
-        <select>
-            <option>Lahore</option>
-            <option>Karachi</option>
-            <option>Islamabad</option>
-            <option>Faisalabad</option>
-            <option>Peshawar</option>
-            <option>Other</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>PAYMENT METHOD</label>
-        <select>
-            <option>Cash on Delivery</option>
-            <option>Bank Transfer (JazzCash/EasyPaisa)</option>
-        </select>
-    </div>
-    <button class="btn-main" style="width:100%;" onclick="alert('Order Successful! We will contact you on your provided number.')">CONFIRM PAKISTAN ORDER</button>
+    <h2 style="text-align:center;">FINAL CHECKOUT</h2>
+    <div id="final-summary" style="padding:15px; background:#f4f4f4; margin-bottom:20px; font-size:0.8rem;"></div>
+    <input type="text" placeholder="FULL NAME">
+    <input type="text" placeholder="PAKISTAN MOBILE NO (+92)">
+    <input type="email" placeholder="EMAIL ADDRESS">
+    <select><option>Select City (Lahore, Karachi, etc)</option><option>Lahore</option><option>Karachi</option><option>Islamabad</option></select>
+    <select><option>Cash on Delivery</option><option>Bank Transfer</option></select>
+    <button class="btn-main" onclick="alert('Order Placed Successfully!')">PLACE ORDER</button>
 </div>
 
 <script>
+    let cart = [];
+    let products = [];
     const categories = ['Bedroom', 'Kitchen', 'Seasonal', 'Discounted', 'Deals'];
     const names = {
-        'Bedroom': ['Ziarat Oak Bed', 'Indus Nightstand', 'Kaghan Wardrobe', 'Hunza Dresser', 'Swat Lounge Chair'],
-        'Kitchen': ['Potohar Dining Table', 'Margalla Stool', 'Bolan Cabinet', 'Salt Range Rack', 'Chenab Kitchen Island'],
-        'Seasonal': ['Murree Fireplace Mantle', 'Naran Garden Bench', 'Kalash Patio Set', 'Ayubia Rocking Chair', 'Skardu Trunk'],
-        'Discounted': ['Lahore Heritage Desk', 'Ravi Side Table', 'Taxila Console', 'Sufi Prayer Bench', 'Khyber Bookshelf'],
-        'Deals': ['Mehran Mirror Set', 'Sialkot Shoe Rack', 'Multan Pottery Stand', 'Quetta Rug Chest', 'Gwadar Coffee Table']
+        'Bedroom': ['Ziarat Bed', 'Indus Side', 'Kaghan Robe', 'Hunza Dress', 'Swat Chair'],
+        'Kitchen': ['Poto Table', 'Marg Stool', 'Bolan Cab', 'Salt Rack', 'Chen Island'],
+        'Seasonal': ['Mur Mantle', 'Nar Bench', 'Kal Set', 'Ayu Chair', 'Ska Trunk'],
+        'Discounted': ['Lah Desk', 'Ravi Table', 'Tax Console', 'Sufi Bench', 'Khy Shelf'],
+        'Deals': ['Meh Mirror', 'Sial Rack', 'Mul Stand', 'Que Chest', 'Gwa Table']
     };
 
-    let products = [];
+    // Initialize 25 Products with specific IDs for furniture images
     categories.forEach(cat => {
         names[cat].forEach((name, i) => {
             products.push({
                 id: `${cat}-${i}`,
                 category: cat,
                 name: name,
-                price: Math.floor(Math.random() * 150000) + 25000,
-                stock: Math.floor(Math.random() * 5) + 1,
-                img: `https://images.unsplash.com/photo-${1550000000000 + (Math.random()*100000).toFixed(0)}?auto=format&fit=crop&w=800&q=80`,
-                desc: `This ${name} is handcrafted in Pakistan using premium solid wood. It features a water-resistant finish and a minimalist artisan design. Perfect for modern Pakistani homes looking for heritage quality.`
+                price: 35000 + (i * 5000),
+                stock: 3,
+                // Using reliable Source.Unsplash IDs for furniture
+                img: `https://loremflickr.com/600/600/furniture,wood?random=${cat}${i}`,
+                desc: `Premium ${name} handcrafted with seasoned wood. Built for durability and minimalist elegance. Guaranteed 10-year timber warranty for Pakistan.`,
+                reviews: [{user: "Ahmed", stars: 5, text: "Excellent quality timber!"}]
             });
         });
     });
 
-    function render(list, targetId) {
-        const grid = document.getElementById(targetId);
-        grid.innerHTML = '';
-        list.forEach(p => {
-            grid.innerHTML += `
-                <div class="product-card">
-                    <img src="${p.img}" onclick="viewProduct('${p.id}')">
-                    <div class="stock-label">STOCK = ${p.stock}</div>
-                    <div class="product-name">${p.name}</div>
-                    <div class="product-price">Rs. ${p.price.toLocaleString()}</div>
-                </div>`;
-        });
+    function render(list, target) {
+        const grid = document.getElementById(target);
+        grid.innerHTML = list.map(p => `
+            <div class="product-card">
+                <img src="${p.img}" onclick="viewProduct('${p.id}')">
+                <div class="product-name">${p.name}</div>
+                <div class="product-price">Rs. ${p.price.toLocaleString()}</div>
+            </div>
+        `).join('');
     }
 
     function viewProduct(id) {
         const p = products.find(x => x.id === id);
-        const content = document.getElementById('product-detail-content');
-        content.innerHTML = `
-            <img src="${p.img}" class="detail-img">
-            <h1 style="font-family:'Playfair Display';">${p.name}</h1>
-            <div class="stock-label" style="font-size:1rem;">Stock Status: ${p.stock > 0 ? p.stock : 'Out of Stock'}</div>
-            <div class="product-price" style="font-size:1.2rem; margin:10px 0;">Rs. ${p.price.toLocaleString()}</div>
-            <p class="description">${p.desc}</p>
-            <div class="btn-container">
-                <button class="btn-main" onclick="alert('Added to Cart!')">ADD TO CART</button>
+        const detail = document.getElementById('product-detail-content');
+        detail.innerHTML = `
+            <img src="${p.img}" style="width:100%; border-radius:8px;">
+            <h2>${p.name}</h2>
+            <div class="stars">★★★★★ (15 Reviews)</div>
+            <p>${p.desc}</p>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-main" onclick="addToCart('${p.id}')">ADD TO CART</button>
                 <button class="btn-alt" onclick="showUpsell()">ADD MORE</button>
+            </div>
+            
+            <div class="review-box">
+                <h4>CUSTOMER REVIEWS</h4>
+                <div id="review-list-${p.id}">
+                    ${p.reviews.map(r => `<div class="review-item"><strong>${r.user}</strong>: ${'★'.repeat(r.stars)}<br>${r.text}</div>`).join('')}
+                </div>
+                <h5>LEAVE A REVIEW</h5>
+                <div id="star-rating-input">
+                    <span class="star-input" onclick="setStar(1)">★</span><span class="star-input" onclick="setStar(2)">★</span><span class="star-input" onclick="setStar(3)">★</span><span class="star-input" onclick="setStar(4)">★</span><span class="star-input" onclick="setStar(5)">★</span>
+                </div>
+                <textarea id="rev-text" placeholder="Share your experience..."></textarea>
+                <button class="btn-alt" onclick="postReview('${p.id}')">POST REVIEW</button>
             </div>
         `;
         showPage('product-page');
     }
 
+    let selectedStars = 0;
+    function setStar(n) {
+        selectedStars = n;
+        const stars = document.querySelectorAll('.star-input');
+        stars.forEach((s, i) => s.classList.toggle('selected', i < n));
+    }
+
+    function postReview(id) {
+        const text = document.getElementById('rev-text').value;
+        if(!selectedStars) return alert("Select stars!");
+        const p = products.find(x => x.id === id);
+        p.reviews.push({user: "Guest User", stars: selectedStars, text: text});
+        viewProduct(id);
+    }
+
+    function addToCart(id) {
+        const p = products.find(x => x.id === id);
+        cart.push(p);
+        updateCartHeader();
+    }
+
+    function updateCartHeader() {
+        const total = cart.reduce((sum, p) => sum + p.price, 0);
+        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
+    }
+
     function showUpsell() {
-        const upsellItems = products.sort(() => 0.5 - Math.random()).slice(0, 4);
-        render(upsellItems, 'upsell-grid');
+        const randoms = products.sort(() => 0.5 - Math.random()).slice(0, 4);
+        render(randoms, 'upsell-grid');
         showPage('add-more-page');
     }
 
-    function showPage(pageId) {
+    function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         document.getElementById('sidebar').classList.remove('active');
-        window.scrollTo(0,0);
-    }
-
-    function filter(cat) {
-        const filtered = cat === 'All' ? products : products.filter(p => p.category === cat);
-        render(filtered, 'main-grid');
-        showPage('home');
-    }
-
-    function searchItems() {
-        const q = document.getElementById('search').value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(q));
-        render(filtered, 'main-grid');
+        if(id === 'checkout') {
+            const total = cart.reduce((sum, p) => sum + p.price, 0);
+            document.getElementById('final-summary').innerText = `Items: ${cart.length} | Grand Total: Rs. ${total.toLocaleString()}`;
+        }
     }
 
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+    function filter(c) { render(c==='All'?products:products.filter(p=>p.category===c), 'main-grid'); showPage('home'); }
 
-    // Initial load
     render(products, 'main-grid');
 </script>
 
