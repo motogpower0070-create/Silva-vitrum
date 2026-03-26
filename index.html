@@ -3,45 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silva-Vitrum | Premium Suites</title>
+    <title>Silva-Vitrum | Premium Wood & Glass</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
         :root { --white: #ffffff; --black: #111111; --gold: #ae944f; --pkr-green: #006633; --sale-red: #bf1e2e; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-        /* Navigation */
+        /* Notification & Header */
         .cart-status { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1200; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
         header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid #eee; position: relative; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 3px; font-weight: 700; cursor: pointer; }
         
-        /* Pages */
-        .page { display: none; padding: 20px; max-width: 1100px; margin: auto; animation: fadeIn 0.4s; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Menu / Sidebar */
+        .ham { cursor: pointer; position: absolute; left: 20px; top: 25px; width: 25px; z-index: 3000; }
+        .ham span { display: block; height: 1px; background: black; margin-bottom: 6px; }
+        .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2500; transition: 0.4s; border-right: 1px solid #eee; padding-top: 80px; }
+        .sidebar.active { left: 0; }
+        .sidebar a { display: block; padding: 18px 25px; text-decoration: none; color: black; font-size: 0.75rem; border-bottom: 1px solid #f9f9f9; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
 
         /* Splash Page */
         #splash { position: fixed; top: 105px; left: 0; width: 100%; height: 100vh; background: white; z-index: 1500; display: flex; flex-direction: column; align-items: center; transition: 0.6s; }
         #splash.hide { opacity: 0; visibility: hidden; }
-        .cta-box { position: absolute; top: 25%; width: 100%; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 30px 0; cursor: pointer; }
+        .cta-box { position: absolute; top: 25%; width: 100%; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 30px 0; cursor: pointer; background: white; }
         .cta-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; cursor: pointer; }
 
-        /* Grid & Cards */
+        /* Grid & Card Logic */
+        .page { display: none; padding: 20px; max-width: 1100px; margin: auto; animation: fadeIn 0.4s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card { text-align: center; cursor: pointer; margin-bottom: 20px; border: 1px solid #f9f9f9; padding: 10px; }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card { text-align: center; cursor: pointer; margin-bottom: 20px; padding: 10px; border: 1px solid #fcfcfc; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 2px; }
         .price-tag { font-size: 0.85rem; font-weight: 600; color: var(--pkr-green); margin-top: 5px; }
         .old-price { color: var(--sale-red); text-decoration: line-through; font-size: 0.7rem; margin-right: 5px; }
 
-        /* Product Detail & Suggestion */
-        .detail-img { width: 100%; height: 300px; object-fit: cover; }
-        .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-        .primary-btn { background: var(--black); color: white; border: none; padding: 18px; flex: 1; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
-        .secondary-btn { background: #eee; color: black; border: none; padding: 18px; flex: 1; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; }
-        
-        /* Checkout Form */
-        input, select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; font-family: 'Montserrat'; }
-        .sec-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.5rem; margin-bottom: 30px; }
+        /* Detail Page UI */
+        .detail-img { width: 100%; height: 320px; object-fit: cover; border-radius: 4px; }
+        .qty-row { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0; }
+        .q-btn { width: 40px; height: 40px; border: 1px solid #ddd; background: white; font-size: 1.2rem; cursor: pointer; }
+        .primary-btn { background: var(--black); color: white; border: none; padding: 18px; width: 100%; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+        .secondary-btn { background: #f4f4f4; color: black; border: none; padding: 15px; width: 100%; font-size: 0.7rem; margin-top: 10px; cursor: pointer; text-transform: uppercase; }
+
+        /* Forms */
+        input, select { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; font-family: inherit; box-sizing: border-box; }
+        .sec-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.6rem; margin: 30px 0; }
     </style>
 </head>
 <body>
@@ -49,122 +56,160 @@
 <div class="cart-status" id="cart-text">CART: 0 ITEMS | RS. 0</div>
 
 <header>
+    <div class="ham" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
     <div class="logo" onclick="showPage('home')">Silva-Vitrum</div>
 </header>
+
+<div class="sidebar" id="sidebar">
+    <a onclick="filter('All')">All Collections</a>
+    <a onclick="filter('Bedroom')">Bedroom Options</a>
+    <a onclick="filter('Kitchen')">Kitchen Options</a>
+    <a onclick="filter('Seasonal')">Seasonal Items</a>
+    <a onclick="filter('Discounted')">Discounted Items (30% Off)</a>
+    <a onclick="filter('Deals')">Exclusive Deals</a>
+    <a onclick="showPage('checkout')" style="background:#f9f9f9">Final Checkout</a>
+</div>
 
 <div id="splash">
     <div class="cta-box" onclick="this.parentElement.classList.add('hide')">
         <button class="cta-btn"><span style="color:var(--gold)">→</span> WHAT ARE U WAITING FOR?</button>
     </div>
+    <div style="margin-top:140px; text-align:center;">
+        <h1 style="font-family:'Playfair Display'; margin:0">GRAND OPENING</h1>
+        <p style="font-size:0.6rem; letter-spacing:4px; color:#999">PAKISTAN'S ARTISAN SUITE</p>
+    </div>
 </div>
 
 <div id="home" class="page active">
-    <h2 class="sec-title">Artisan Suite</h2>
+    <h2 class="sec-title">The Collection</h2>
     <div class="grid" id="main-grid"></div>
 </div>
 
 <div id="details" class="page">
+    <button class="secondary-btn" style="width:auto; padding:5px 15px;" onclick="showPage('home')">← Back</button>
     <div id="detail-content"></div>
 </div>
 
 <div id="suggestions" class="page">
     <h2 class="sec-title">Complete Your Suite</h2>
-    <p style="text-align:center; font-size:0.8rem; margin-bottom:20px;">Customers also selected these similar items:</p>
+    <p style="text-align:center; font-size:0.8rem; margin-bottom:25px;">Consider these matching items:</p>
     <div class="grid" id="suggest-grid"></div>
     <div style="margin-top:40px;">
-        <button class="primary-btn" onclick="showPage('checkout')">PROCEED TO BUY NOW</button>
-        <button class="secondary-btn" style="margin-top:10px; width:100%;" onclick="showPage('home')">CONTINUE SHOPPING</button>
+        <button class="primary-btn" onclick="showPage('checkout')">BUY NOW</button>
+        <button class="secondary-btn" onclick="showPage('home')">CONTINUE SHOPPING</button>
     </div>
 </div>
 
 <div id="checkout" class="page">
-    <h2 class="sec-title">Shipping & Payment</h2>
-    <div id="order-summary" style="margin-bottom:20px; font-size:0.8rem; border-bottom:1px solid #eee; padding-bottom:10px;"></div>
+    <h2 class="sec-title">Checkout</h2>
+    <div id="summary" style="margin-bottom:25px; padding:15px; background:#f9f9f9; font-size:0.8rem;"></div>
     <input type="text" placeholder="Full Name">
-    <input type="text" placeholder="Delivery Address (Gujrat/Lahore/etc.)">
-    <input type="tel" placeholder="Phone Number (+92)">
+    <input type="text" placeholder="Shipping Address">
+    <input type="tel" placeholder="WhatsApp Number">
     <input type="email" placeholder="Email Address">
     <select>
-        <option disabled selected>Select Payment Method</option>
-        <option>Bank Transfer (UBL/HBL)</option>
+        <option disabled selected>Payment Method</option>
+        <option>Bank Transfer</option>
         <option>JazzCash / EasyPaisa</option>
-        <option>Cash on Delivery</option>
+        <option>Cash on Delivery (Gujrat)</option>
     </select>
-    <button class="primary-btn" onclick="alert('Order Sent! Our team will contact you on WhatsApp.'); location.reload();">PLACE FINAL ORDER</button>
+    <button class="primary-btn" onclick="alert('Order received! We will contact you on WhatsApp.'); location.reload();">PLACE ORDER</button>
 </div>
 
 <script>
     let cart = [];
+    let currentQty = 1;
+
     const products = [
-        { id:'1', cat:'Bedroom', name:'Royal haven bedroom suite', price:180000, img:'1000007190.png', desc:'Exquisite royal carvings.' },
-        { id:'2', cat:'Bedroom', name:'Midnight Luxe bedroom collection', price:210000, img:'1000007191.png', desc:'Premium luxury set.' },
-        { id:'3', cat:'Bedroom', name:'Serene oak retreat bedroom set', price:165000, img:'1000007192.png', desc:'Calm oak textures.' },
-        { id:'4', cat:'Kitchen', name:'Golden crest kitchen suite', price:120000, img:'1000007193.png', desc:'High-end dining.' },
-        { id:'5', cat:'Kitchen', name:'Urban Noir kitchen collection', price:145000, img:'1000007194.png', desc:'Modern dark walnut.' },
-        { id:'6', cat:'Kitchen', name:'Pure Haven kitchen set', price:110000, img:'1000007195.png', desc:'Minimalist finish.' },
-        { id:'7', cat:'Seasonal', name:'Golden breeze collection', price:55000, img:'1000007196.png', desc:'Outdoor durability.' },
-        { id:'8', cat:'Seasonal', name:'Frost haven collection', price:65000, img:'1000007197.png', desc:'Winter aesthetic.' },
-        { id:'9', cat:'Seasonal', name:'Bloom aura collection', price:48000, img:'1000007198.png', desc:'Spring patterns.' },
-        { id:'10', cat:'Discounted', name:'Bargain haven', price:70000, img:'1000007199.png', sale:true, desc:'Best value.' },
-        { id:'11', cat:'Discounted', name:'Deal depot', price:56000, img:'1000007200.png', sale:true, desc:'Storage deal.' },
-        { id:'12', cat:'Discounted', name:'Hot picks sale', price:49000, img:'1000007201.png', sale:true, desc:'Customer favorite.' },
-        { id:'13', cat:'Deals', name:'Perfect pair deals', price:250000, img:'1000007202.png', desc:'Combo set.' },
-        { id:'14', cat:'Deals', name:'Duo delight collection', price:220000, img:'1000007203.png', desc:'Matching pair.' },
-        { id:'15', cat:'Deals', name:'Twin treasure deals', price:275000, img:'1000007205.png', desc:'Double suite.' }
+        { id:'1', cat:'Bedroom', name:'Royal haven bedroom suite', price:180000, img:'1000007190.png', desc:'Exquisite royal comfort.' },
+        { id:'2', cat:'Bedroom', name:'Midnight Luxe bedroom collection', price:210000, img:'1000007191.png', desc:'Deep luxury tones.' },
+        { id:'3', cat:'Bedroom', name:'Serene oak retreat bedroom set', price:165000, img:'1000007192.png', desc:'Natural oak finish.' },
+        { id:'4', cat:'Kitchen', name:'Golden crest kitchen suite', price:120000, img:'1000007193.png', desc:'Artisan kitchen work.' },
+        { id:'5', cat:'Kitchen', name:'Urban Noir kitchen collection', price:145000, img:'1000007194.png', desc:'Modern dark finish.' },
+        { id:'6', cat:'Kitchen', name:'Pure Haven kitchen set', price:110000, img:'1000007195.png', desc:'Clean minimalist design.' },
+        { id:'7', cat:'Seasonal', name:'Golden breeze collection', price:55000, img:'1000007196.png', desc:'All-weather quality.' },
+        { id:'8', cat:'Seasonal', name:'Frost haven collection', price:65000, img:'1000007197.png', desc:'Cozy winter vibes.' },
+        { id:'9', cat:'Seasonal', name:'Bloom aura collection', price:48000, img:'1000007198.png', desc:'Floral craftsmanship.' },
+        { id:'10', cat:'Discounted', name:'Bargain haven', price:70000, img:'1000007199.png', sale:true, desc:'Premium at a discount.' },
+        { id:'11', cat:'Discounted', name:'Deal depot', price:56000, img:'1000007200.png', sale:true, desc:'Limited time offer.' },
+        { id:'12', cat:'Discounted', name:'Hot picks sale', price:49000, img:'1000007201.png', sale:true, desc:'30% Off flagship picks.' },
+        { id:'13', cat:'Deals', name:'Perfect pair deals', price:250000, img:'1000007202.png', desc:'Matched suite pairs.' },
+        { id:'14', cat:'Deals', name:'Duo delight collection', price:220000, img:'1000007203.png', desc:'High-value bundle.' },
+        { id:'15', cat:'Deals', name:'Twin treasure deals', price:275000, img:'1000007205.png', desc:'The ultimate artisan set.' }
     ];
 
-    function renderGrid() {
-        document.getElementById('main-grid').innerHTML = products.map(p => `
+    function renderGrid(data = products) {
+        document.getElementById('main-grid').innerHTML = data.map(p => `
             <div class="card" onclick="openDetails('${p.id}')">
                 <img src="${p.img}">
-                <div style="font-size:0.65rem; margin-top:8px; text-transform:uppercase;">${p.name}</div>
+                <div style="font-size:0.7rem; margin-top:10px; text-transform:uppercase; height:30px;">${p.name}</div>
                 <div class="price-tag">${p.sale ? `<span class="old-price">Rs.${Math.round(p.price/0.7).toLocaleString()}</span>` : ''} Rs.${p.price.toLocaleString()}</div>
             </div>`).join('');
     }
 
     function openDetails(id) {
         const p = products.find(x => x.id === id);
+        currentQty = 1;
         document.getElementById('detail-content').innerHTML = `
             <img src="${p.img}" class="detail-img">
-            <h2 style="text-transform:uppercase; font-size:1.2rem;">${p.name}</h2>
-            <div class="price-tag" style="font-size:1.1rem;">Rs. ${p.price.toLocaleString()}</div>
-            <p style="font-size:0.8rem; color:#666; margin:15px 0;">${p.desc}</p>
-            <div class="btn-row">
-                <button class="primary-btn" onclick="addToCart('${p.id}')">ADD TO CART</button>
+            <h2 style="text-transform:uppercase; margin:15px 0 5px;">${p.name}</h2>
+            <div class="price-tag" style="font-size:1.2rem; margin-bottom:15px;">Rs. ${p.price.toLocaleString()}</div>
+            <p style="color:#666; font-size:0.85rem; line-height:1.6;">${p.desc}</p>
+            <div class="qty-row">
+                <button class="q-btn" onclick="updateDetailQty(-1)">-</button>
+                <span id="qty-val" style="font-weight:600;">1</span>
+                <button class="q-btn" onclick="updateDetailQty(1)">+</button>
             </div>
-            <button class="secondary-btn" style="width:100%; margin-top:10px;" onclick="showPage('home')">BACK TO SHOP</button>
+            <button class="primary-btn" onclick="addToCart('${p.id}')">ADD TO SUITE</button>
+            <div style="margin-top:30px; font-size:0.75rem; border-top:1px solid #eee; padding-top:15px;">
+                <strong>CLIENT REVIEWS:</strong><br>
+                "Seamless glass and wood integration. Highly recommended." - ⭐⭐⭐⭐⭐
+            </div>
         `;
         showPage('details');
     }
 
+    function updateDetailQty(d) {
+        currentQty = Math.max(1, currentQty + d);
+        document.getElementById('qty-val').innerText = currentQty;
+    }
+
     function addToCart(id) {
         const p = products.find(x => x.id === id);
-        cart.push(p);
-        updateCart();
+        for(let i=0; i<currentQty; i++) cart.push(p);
+        updateHeader();
         
-        // Render "Shop More" page with 4 suggested items from the same category
-        const suggestions = products.filter(x => x.cat === p.cat && x.id !== id).slice(0, 4);
-        document.getElementById('suggest-grid').innerHTML = suggestions.map(s => `
-            <div class="card" onclick="cart.push(products.find(x=>x.id==='${s.id}')); updateCart(); alert('Added!')">
+        // Populate "Shop More" Suggestions
+        const others = products.filter(x => x.cat === p.cat && x.id !== id).slice(0, 4);
+        document.getElementById('suggest-grid').innerHTML = others.map(s => `
+            <div class="card" onclick="cart.push(products.find(x=>x.id==='${s.id}')); updateHeader(); alert('Added!')">
                 <img src="${s.img}">
                 <div style="font-size:0.6rem;">${s.name}</div>
-                <div class="price-tag">Rs.${s.price.toLocaleString()}</div>
-                <button style="font-size:0.5rem; padding:5px; margin-top:5px; width:100%;">+ ADD ALSO</button>
+                <div class="price-tag" style="font-size:0.7rem;">Rs.${s.price.toLocaleString()}</div>
+                <button class="secondary-btn" style="padding:5px; font-size:0.55rem;">+ ADD ALSO</button>
             </div>`).join('');
         
         showPage('suggestions');
     }
 
-    function updateCart() {
+    function updateHeader() {
         const total = cart.reduce((s, p) => s + p.price, 0);
-        document.getElementById('cart-text').innerText = `CART: ${cart.length} ITEMS | RS. ${total.toLocaleString()}`;
-        document.getElementById('order-summary').innerHTML = `<strong>Total Items:</strong> ${cart.length} <br> <strong>Total Bill:</strong> Rs. ${total.toLocaleString()}`;
+        document.getElementById('cart-text').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
+        document.getElementById('summary').innerHTML = `<strong>Total Items:</strong> ${cart.length} <br> <strong>Grand Total:</strong> Rs. ${total.toLocaleString()}`;
     }
 
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+        document.getElementById('sidebar').classList.remove('active');
         window.scrollTo(0,0);
+    }
+
+    function filter(cat) {
+        const data = (cat === 'All') ? products : products.filter(p => p.cat === cat);
+        renderGrid(data);
+        showPage('home');
     }
 
     renderGrid();
