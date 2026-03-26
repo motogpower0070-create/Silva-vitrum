@@ -1,72 +1,61 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silva-Vitrum | Premium Wood & Glass Suites</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 
         :root { --white: #ffffff; --black: #111111; --accent: #fcfcfc; --gold: #ae944f; --pkr-green: #006633; --sale-red: #bf1e2e; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--white); color: var(--black); line-height: 1.6; overflow-x: hidden; }
 
-        /* Status & Cart (Fixed) */
+        /* Notification & Status */
         .cart-status-bar { background: var(--black); color: white; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1200; font-size: 0.7rem; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid #333; }
-        
-        header { background: rgba(255,255,255,0.98); padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); position: relative; z-index: 1000; }
+        .toast-notification { position: fixed; top: -100px; left: 0; width: 100%; background: #fafafa; color: black; padding: 20px; text-align: center; z-index: 5000; font-size: 0.7rem; letter-spacing: 1px; transition: 0.4s; border-bottom: 2px solid var(--black); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .toast-notification.show { top: 0; }
+
+        header { background: white; padding: 1rem; text-align: center; border-bottom: 1px solid var(--accent); position: relative; }
         .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 3px; cursor: pointer; color: var(--black); font-weight: 700; }
-        
         .ham { cursor: pointer; position: absolute; left: 20px; top: 25px; width: 25px; }
         .ham span { display: block; height: 1px; background: black; margin-bottom: 6px; }
 
         .sidebar { position: fixed; left: -100%; top: 0; width: 280px; height: 100%; background: white; z-index: 2000; transition: 0.5s; border-right: 1px solid #eee; padding-top: 80px; box-shadow: 10px 0 50px rgba(0,0,0,0.05); }
         .sidebar.active { left: 0; }
         .sidebar a { display: block; padding: 18px 25px; text-decoration: none; color: black; font-size: 0.8rem; letter-spacing: 1px; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
-        .sidebar a:hover { color: var(--gold); }
 
-        /* SPLASH / FRONT PAGE SECTION (Elegant Overlay) */
-        #front-page-splash { position: fixed; top: 112px; left: 0; width: 100%; height: calc(100vh - 112px); background: white; z-index: 1500; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 40px 20px; box-sizing: border-box; transition: 0.8s ease; border-top: 1px solid #eee; }
+        /* SPLASH PAGE (Anchored CTA at 1/4 Screen) */
+        #front-page-splash { position: fixed; top: 112px; left: 0; width: 100%; height: calc(100vh - 112px); background: white; z-index: 1500; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.8s ease; }
         #front-page-splash.hide { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(20px); }
-        
-        .banner-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #444; line-height: 1.6; text-align: center; margin-bottom: 40px; font-weight: 700; letter-spacing: 1px; max-width: 400px;}
-        . banner-subtitle { font-size: 0.65rem; color: #777; letter-spacing: 3px; font-weight: 300; text-transform: uppercase; margin-bottom: 30px; }
+        .cta-container { position: absolute; top: 25%; width: 100%; text-align: center; cursor: pointer; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; background: #fff; }
+        .cta-btn { background: none; border: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 4px; color: var(--black); }
+        .cta-btn span { color: var(--gold); margin-right: 10px; }
 
-        .banner-btn-container { position: absolute; top: 25%; width: 100%; text-align: center; cursor: pointer; padding: 20px 0; border-bottom: 1px solid #eee; border-top: 1px solid #eee;}
-        .banner-btn { background: none; border: none; font-size: 0.8rem; font-family: 'Montserrat'; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 3px; }
-        .banner-btn span { color: var(--gold); font-size: 1rem; position: relative; top: 3px;}
-
-        /* Pages & Collections */
+        /* Pages */
         .page { display: none; padding: 20px; min-height: 80vh; animation: fadeIn 0.4s; max-width: 900px; margin: auto; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* Product Theme */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .product-card { text-align: center; margin-bottom: 30px; position: relative; padding: 10px; border: 1px solid transparent; transition: 0.3s; }
-        .product-card:hover { border-color: #eee; background: #fafafa; }
-        .product-card img { width: 100%; height: 230px; object-fit: cover; border-radius: 4px; cursor: pointer; background: #eee; }
-        
-        /* Pricing & Details */
-        .badge { position: absolute; top: 15px; left: 15px; background: var(--sale-red); color: white; padding: 5px 12px; font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; border-radius: 2px; }
-        .old-price { text-decoration: line-through; color: #999; font-size: 0.75rem; margin-right: 8px; }
-        .current-price { color: var(--pkr-green); font-weight: 600; font-size: 0.85rem; }
+        .product-card { text-align: center; margin-bottom: 30px; position: relative; padding: 15px; border: 1px solid transparent; transition: 0.3s; background: #fff; }
+        .product-card:hover { border-color: #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .product-card img { width: 100%; height: 230px; object-fit: cover; border-radius: 4px; cursor: pointer; }
+        .product-name { font-size: 0.8rem; font-weight: 600; margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .current-price { color: var(--pkr-green); font-weight: 600; font-size: 0.9rem; }
 
-        .product-name { font-size: 0.8rem; font-weight: 600; margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        /* Interactive Controls */
-        .buy-btn { background: black; color: white; border: none; padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; text-transform: uppercase; margin-top: 10px; letter-spacing: 1.5px; }
-        .q-btn { border: 1px solid #ddd; background: white; width: 28px; height: 28px; cursor: pointer; font-size: 1rem; }
-        .qty-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 10px 0; }
-
-        input, select, textarea { width: 100%; padding: 15px; margin-top: 10px; border: 1px solid #eee; font-family: 'Montserrat'; font-size: 0.8rem; box-sizing: border-box; }
-        .section-title { font-family: 'Playfair Display'; text-align: center; font-size: 1.8rem; margin-bottom: 30px; font-weight: 700; border-bottom: 2px solid #000; display: inline-block; }
+        /* Qty & Buttons */
+        .qty-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 15px 0; }
+        .q-btn { border: 1px solid #ddd; background: white; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .buy-btn { background: black; color: white; border: none; padding: 15px; width: 100%; font-size: 0.7rem; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; }
         .back-nav-btn { background: none; border: none; text-decoration: underline; color: #666; font-size: 0.65rem; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
     </style>
 </head>
 <body>
 
-<div class="cart-status-bar" id="cart-status">
-    CART: 0 ITEMS | RS. 0
-</div>
+<div id="toast" class="toast-notification">ITEM ADDED</div>
+
+<div class="cart-status-bar" id="cart-status">CART: 0 ITEMS | RS. 0</div>
 
 <header>
     <div class="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
@@ -75,40 +64,27 @@
 
 <div class="sidebar" id="sidebar">
     <a onclick="filter('All')">ALL COLLECTIONS</a>
-    <a onclick="filter('Bedroom')">BEDROOM SUITES</a>
-    <a onclick="filter('Kitchen')">KITCHEN & DINING</a>
-    <a onclick="filter('Seasonal')">SEASONAL EDITIONS</a>
-    <a onclick="filter('Discounted')">DISCOUNTED PIECES</a>
-    <a onclick="filter('Deals')">EXCLUSIVE BUNDLES</a>
-    <a onclick="showPage('custom-order')" style="color: var(--gold);">BESPOKE REQUESTS</a>
+    <a onclick="filter('Bedroom')">BEDROOM (3)</a>
+    <a onclick="filter('Kitchen')">KITCHEN (3)</a>
+    <a onclick="filter('Seasonal')">SEASONAL (3)</a>
+    <a onclick="filter('Discounted')">DISCOUNTED (3)</a>
+    <a onclick="filter('Deals')">EXCLUSIVE DEALS (3)</a>
     <a onclick="showPage('home')" style="background: #fafafa;">BACK TO SHOP</a>
 </div>
 
 <div id="front-page-splash">
-    <div class="banner-btn-container" onclick="closeSplash()">
-        <button class="banner-btn"><span>→</span> &nbsp; what are u waiting for?</button>
+    <div class="cta-container" onclick="closeSplash()">
+        <button class="cta-btn"><span>→</span> what are u waiting for?</button>
     </div>
-    <div class="splash-middle">
-        <img src="https://loremflickr.com/800/800/furniture,wood,artisan?random=splash" alt="Splash Image" style="max-height: 100%; width: auto; border-radius: 8px;">
+    <div style="text-align: center; margin-top: 100px;">
+        <h1 style="font-family: 'Playfair Display'; font-size: 2rem; letter-spacing: 2px;">Grand Opening</h1>
+        <p style="font-size: 0.7rem; color: #888; letter-spacing: 3px; text-transform: uppercase;">Pakistan's Artisan Suite</p>
     </div>
-    <div class="banner-title">
-        The Purest Fusion of Forest & Clarity<br>
-        <div style="font-size:0.7rem; font-family:'Montserrat'; font-weight:300; letter-spacing:2px; margin-top:20px; color:#777">PAKISTAN’S ARTISAN COLLECTION</div>
-    </div>
-    
 </div>
 
 <div id="home" class="page active">
-    <h2 class="section-title">The Pakistan Suite</h2>
+    <h2 class="section-title" style="display: block; text-align: center; font-family: 'Playfair Display'; margin-bottom: 30px;">The Collection</h2>
     <div class="grid" id="main-grid"></div>
-</div>
-
-<div id="custom-order" class="page">
-    <button class="back-nav-btn" onclick="showPage('home')">← Back to Shop</button>
-    <h2 class="section-title">Bespoke Requests</h2>
-    <input type="text" placeholder="Furniture Type">
-    <textarea placeholder="Custom Dimensions & Requirements..." style="height: 100px;"></textarea>
-    <button class="buy-btn" onclick="alert('Inquiry Sent!')">Submit Custom Request</button>
 </div>
 
 <div id="product-page" class="page">
@@ -118,128 +94,103 @@
 
 <div id="checkout" class="page">
     <button class="back-nav-btn" onclick="showPage('home')">← Back to Shop</button>
-    <h2 class="section-title">Order Details</h2>
-    <div id="final-summary" style="padding:15px; background:#fafafa; border:1px solid #eee; margin-bottom:20px;"></div>
-    <input type="text" placeholder="Full Name">
-    <input type="text" placeholder="WhatsApp Number (+92)">
-    <select><option>Select City</option><option>Lahore</option><option>Karachi</option><option>Islamabad</option></select>
-    <button class="buy-btn" onclick="alert('Order Successful!')">PLACE ORDER</button>
+    <h2 class="section-title">Order Summary</h2>
+    <div id="final-list" style="margin-bottom: 20px; font-size: 0.8rem;"></div>
+    <button class="buy-btn" onclick="location.reload()">COMPLETE PURCHASE</button>
 </div>
 
 <script>
     let cart = [];
     let products = [];
-    const cats = ['Bedroom', 'Kitchen', 'Seasonal', 'Discounted', 'Deals'];
-    const names = {
-        'Bedroom': ['Ziarat Bed', 'Indus Side', 'Kaghan Robe', 'Hunza Dress', 'Swat Chair'],
-        'Kitchen': ['Pot Dining', 'Mar Stool', 'Bolan Cab', 'Salt Rack', 'Chen Island'],
-        'Seasonal': ['Mur Mantle', 'Nar Bench', 'Kal Set', 'Ayu Chair', 'Ska Trunk'],
-        'Discounted': ['Lah Desk', 'Ravi Table', 'Tax Console', 'Sufi Bench', 'Khy Shelf'],
-        'Deals': ['Meh Mirror', 'Sial Rack', 'Mul Stand', 'Que Chest', 'Gwa Table']
-    };
+    
+    const items = [
+        { id: 'b1', cat: 'Bedroom', name: 'Ziarat Bed', price: 95000, img: 'bed,bedroom,person' },
+        { id: 'b2', cat: 'Bedroom', name: 'Kaghan Side', price: 18000, img: 'nightstand,person' },
+        { id: 'b3', cat: 'Bedroom', name: 'Hunza Dresser', price: 45000, img: 'dresser,person' },
+        { id: 'k1', cat: 'Kitchen', name: 'Pot Table', price: 85000, img: 'dining,table,person' },
+        { id: 'k2', cat: 'Kitchen', name: 'Marg Stools', price: 14000, img: 'stool,kitchen,person' },
+        { id: 'k3', cat: 'Kitchen', name: 'Bolan Cab', price: 55000, img: 'cabinet,person' },
+        { id: 's1', cat: 'Seasonal', name: 'Naran Swing', price: 42000, img: 'swing,chair,person' },
+        { id: 's2', cat: 'Seasonal', name: 'Ayu Rocker', price: 22000, img: 'rocking,chair,person' },
+        { id: 's3', cat: 'Seasonal', name: 'Mur Fire Pit', price: 25000, img: 'fireplace,person' },
+        { id: 'd1', cat: 'Discounted', name: 'Lah Desk', price: 28000, img: 'desk,person' },
+        { id: 'd2', cat: 'Discounted', name: 'Ravi Table', price: 16000, img: 'coffee,table,person' },
+        { id: 'd3', cat: 'Discounted', name: 'Tax Console', price: 9000, img: 'console,person' },
+        { id: 'e1', cat: 'Deals', name: 'Bed Pack', price: 195000, img: 'bedroom,set,person' },
+        { id: 'e2', cat: 'Deals', name: 'Dining Pack', price: 110000, img: 'dining,room,family' },
+        { id: 'e3', cat: 'Deals', name: 'Garden Suite', price: 55000, img: 'patio,set,person' }
+    ];
 
-    // Gen 25 unique items
-    cats.forEach(c => {
-        names[c].forEach((name, i) => {
-            products.push({
-                id: `${c}-${i}`,
-                category: c,
-                name: name,
-                price: 35000 + (Math.random() * 80000),
-                stock: Math.floor(Math.random() * 5) + 1,
-                img: `https://loremflickr.com/700/700/furniture,wood,glass?random=${c}${i}`,
-                desc: `Exquisite ${name} artisan woodwork from Pakistan. Guaranteed solid Sheesham timber with bespoke glass fusion design.`
-            });
-        });
-    });
+    products = items.map(p => ({ ...p, img: `https://loremflickr.com/800/800/${p.img}?random=${p.id}` }));
 
-    function render(list, target = 'main-grid') {
-        const grid = document.getElementById(target);
-        grid.innerHTML = list.map(p => `
-            <div class="product-card">
-                ${p.stock === 1 ? `<div class="badge">ONLY 1 LEFT</div>` : ''}
-                <img src="${p.img}" onclick="viewProduct('${p.id}')">
-                <div class="product-name">${p.name}</div>
-                <div class="price">
-                    <span class="current-price">Rs. ${Math.floor(p.price).toLocaleString()}</span>
+    function render(list) {
+        document.getElementById('main-grid').innerHTML = list.map(p => {
+            const qty = cart.filter(x => x.id === p.id).length;
+            return `
+                <div class="product-card">
+                    <img src="${p.img}" onclick="viewProduct('${p.id}')">
+                    <div class="product-name">${p.name}</div>
+                    <div class="current-price">Rs. ${p.price.toLocaleString()}</div>
+                    <div class="qty-row">
+                        <button class="q-btn" onclick="adjQty('${p.id}', -1)">-</button>
+                        <span style="font-weight:600; font-size:0.9rem;">${qty}</span>
+                        <button class="q-btn" onclick="adjQty('${p.id}', 1)">+</button>
+                    </div>
+                    <button class="buy-btn" onclick="addToCart('${p.id}')">ADD TO CART</button>
                 </div>
-                <div style="font-size:0.5rem; color:#888;">Live Stock: ${p.stock}</div>
-                <div class="qty-row">
-                    <button class="q-btn" onclick="adjQty('${p.id}', -1)">-</button>
-                    <span id="q-${target}-${p.id}">${cart.filter(item => item.id === p.id).length}</span>
-                    <button class="q-btn" onclick="adjQty('${p.id}', 1)">+</button>
-                </div>
-                <button class="buy-btn" onclick="addToCart('${p.id}')">ADD TO CART</button>
-            </div>
-        `).join('');
-    }
-
-    function closeSplash() {
-        document.getElementById('front-page-splash').classList.add('hide');
-        window.scrollTo(0,0);
-    }
-
-    function viewProduct(id) {
-        const p = products.find(x => x.id === id);
-        const detail = document.getElementById('product-detail-content');
-        detail.innerHTML = `
-            <img src="${p.img}" style="width:100%; border-radius:8px;">
-            <h2>${p.name}</h2>
-            <div class="current-price" style="font-size:1.2rem; margin-bottom:10px;">Rs. ${p.price.toLocaleString()}</div>
-            <p>${p.desc}</p>
-            <button class="buy-btn" onclick="addToCart('${id}')">ADD TO CART</button>
-        `;
-        showPage('product-page');
-    }
-
-    function addToCart(id) {
-        const p = products.find(x => x.id === id);
-        if(cart.filter(item => item.id === id).length < p.stock) {
-            cart.push(p);
-            updateCartHeader();
-            render(products); // Refresh counts in main grid
-        } else {
-            alert("No more items available in live stock.");
-        }
+            `;
+        }).join('');
     }
 
     function adjQty(id, delta) {
-        if (delta === 1) {
-            addToCart(id);
-        } else {
-            const index = cart.findIndex(item => item.id === id);
-            if (index !== -1) cart.splice(index, 1);
-            updateCartHeader();
+        if (delta === 1) addToCart(id);
+        else {
+            const idx = cart.findIndex(x => x.id === id);
+            if (idx !== -1) cart.splice(idx, 1);
+            updateCart();
             render(products);
         }
     }
 
-    function updateCartHeader() {
-        const total = cart.reduce((sum, p) => sum + p.price, 0);
-        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | TOTAL: RS. ${total.toLocaleString()}`;
+    function addToCart(id) {
+        const p = products.find(x => x.id === id);
+        cart.push(p);
+        updateCart();
+        render(products);
+        const t = document.getElementById('toast');
+        t.innerText = `${p.name.toUpperCase()} ADDED`;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
     }
 
+    function updateCart() {
+        const total = cart.reduce((s, p) => s + p.price, 0);
+        document.getElementById('cart-status').innerText = `CART: ${cart.length} ITEMS | RS. ${total.toLocaleString()}`;
+    }
+
+    function viewProduct(id) {
+        const p = products.find(x => x.id === id);
+        document.getElementById('product-detail-content').innerHTML = `
+            <img src="${p.img}" style="width:100%; border-radius:4px;">
+            <h2>${p.name}</h2>
+            <div class="current-price" style="font-size:1.4rem;">Rs. ${p.price.toLocaleString()}</div>
+            <button class="buy-btn" onclick="addToCart('${p.id}')" style="margin-top:20px;">ADD TO CART</button>
+        `;
+        showPage('product-page');
+    }
+
+    function closeSplash() { document.getElementById('front-page-splash').classList.add('hide'); }
+    function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+    function filter(c) { render(c === 'All' ? products : products.filter(p => p.cat === c)); showPage('home'); }
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         document.getElementById('sidebar').classList.remove('active');
-        if(id === 'checkout') {
-            const total = cart.reduce((sum, p) => sum + p.price, 0);
-            document.getElementById('final-summary').innerText = `SUMMARY: ${cart.length} Items Selected | Payable: Rs. ${total.toLocaleString()}`;
-        }
-        closeSplash(); // Ensure splash closes if navigating from sidebar
+        closeSplash();
         window.scrollTo(0,0);
-    }
-
-    function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
-    function filter(c) { 
-        const list = (c === 'All') ? products : products.filter(p => p.category === c);
-        render(list); 
-        showPage('home'); 
     }
 
     render(products);
 </script>
-
 </body>
 </html>
