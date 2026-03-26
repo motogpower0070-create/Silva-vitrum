@@ -3,142 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silva Lignum | Elite Woodwork Prototype</title>
+    <title>Silva Lignum | Artisan Woodwork</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&display=swap');
+
         :root { 
-            --gold: #d4af37; 
-            --dark-gold: #aa8c2c;
-            --bg-texture: #0a0a0a; 
-            --card-bg: #141414;
-            --wa: #25D366; 
+            --gold: #D4AF37; /* True Metallic Gold */
+            --bg: #0a0a0a; 
+            --card-bg: #111;
         }
         
         body { 
-            font-family: 'Times New Roman', serif; 
+            font-family: 'Cinzel', serif; 
             margin: 0; 
-            background-color: var(--bg-texture);
+            background-color: var(--bg);
             background-image: radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0);
             background-size: 30px 30px;
             color: var(--gold); 
-            scroll-behavior: smooth; 
+            overflow-x: hidden;
         }
-        
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         header { 
             background: rgba(0,0,0,0.95); 
-            color: var(--gold); 
             padding: 1.5rem; 
             text-align: center; 
             position: sticky; 
             top: 0; 
             z-index: 100; 
-            border-bottom: 2px solid var(--gold); 
+            border-bottom: 1px solid var(--gold); 
         }
 
-        .menu-btn { position: absolute; right: 20px; top: 20px; font-size: 30px; cursor: pointer; color: var(--gold); background: none; border: none; }
-        
-        .search-container { margin: 15px auto; max-width: 400px; padding: 0 20px; }
-        #searchBar { 
-            width: 100%; padding: 12px; border-radius: 0; 
-            border: 1px solid var(--gold); background: #000; color: var(--gold); 
-            font-size: 1rem; outline: none; 
+        /* Hamburger Menu (Top Left) */
+        .menu-btn { 
+            position: absolute; left: 20px; top: 25px; 
+            cursor: pointer; background: none; border: none; 
+            display: flex; flex-direction: column; gap: 5px;
         }
+        .menu-btn span { width: 25px; height: 2px; background: var(--gold); transition: 0.3s; }
+
+        .logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin: 0; color: var(--gold); }
 
         /* Sidebar */
-        .sidebar { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #000; color: var(--gold); transition: 0.4s; z-index: 1000; padding-top: 60px; border-left: 2px solid var(--gold); }
-        .sidebar.active { right: 0; }
-        .sidebar a { display: block; padding: 15px 25px; color: var(--gold); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid #222; cursor: pointer; }
-        .sidebar a:hover { background: var(--gold); color: #000; }
-        .close-btn { position: absolute; top: 10px; left: 10px; font-size: 20px; cursor: pointer; color: var(--gold); }
-
-        /* Order History Panel */
-        #order-panel { display: none; padding: 20px; background: #111; border: 1px solid var(--gold); margin: 20px; border-radius: 5px; }
-
-        /* Gallery */
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        .section-title { text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        
-        .card { 
-            background: var(--card-bg); overflow: hidden; cursor: pointer; 
-            box-shadow: 10px 10px 25px rgba(0,0,0,0.7); transition: 0.3s; 
-            border: 1px solid #222; 
+        .sidebar { 
+            position: fixed; left: -300px; top: 0; width: 260px; height: 100%; 
+            background: #000; z-index: 1000; transition: 0.4s; padding-top: 60px;
+            border-right: 1px solid var(--gold);
         }
-        .card:hover { transform: scale(1.02); border-color: var(--gold); }
-        .card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(30%); }
-        .info { padding: 20px; text-align: center; }
-        .price { color: var(--gold); font-weight: bold; font-size: 1.4rem; }
+        .sidebar.active { left: 0; }
+        .sidebar a { display: block; padding: 15px 25px; color: var(--gold); text-decoration: none; font-size: 1rem; border-bottom: 1px solid #222; }
+        .sidebar a:hover { background: var(--gold); color: #000; }
+
+        /* Sections */
+        .content-section { display: none; padding: 20px; max-width: 1200px; margin: auto; }
+        .content-section.active { display: block; }
+
+        /* 2-Column Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { background: var(--card-bg); border: 1px solid #222; overflow: hidden; position: relative; }
+        .card img { width: 100%; height: 200px; object-fit: cover; filter: brightness(0.7); transition: 0.5s; }
+        .card:hover img { filter: brightness(1); transform: scale(1.05); }
+        .info { padding: 10px; text-align: center; }
+        .info h3 { font-size: 0.8rem; margin: 5px 0; text-transform: uppercase; }
+        .price { font-weight: bold; font-size: 0.9rem; }
+
+        /* About Text */
+        .about-text { font-family: 'Great Vibes', cursive; font-size: 1.8rem; text-align: center; line-height: 1.6; padding: 40px 20px; }
 
         /* Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: #000; max-width: 500px; width: 100%; border: 1px solid var(--gold); padding: 25px; text-align: center; position: relative; }
-        .wa-btn { background: var(--gold); color: #000; padding: 15px; display: block; text-decoration: none; font-weight: bold; margin-top: 20px; }
-
-        /* Footer */
-        footer { border-top: 1px solid var(--gold); padding: 40px 20px; text-align: center; margin-top: 50px; background: #000; }
-        .social-link { color: var(--gold); text-decoration: none; font-size: 1.2rem; border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; margin-top: 10px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #000; width: 100%; max-width: 400px; border: 1px solid var(--gold); padding: 20px; text-align: center; }
+        .wa-btn { background: var(--gold); color: #000; padding: 12px; display: block; text-decoration: none; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <h1>SILVA LIGNUM</h1>
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search Masterpieces..." onkeyup="searchProducts()">
-    </div>
+    <button class="menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <h1 class="logo">Silva Lignum</h1>
 </header>
 
 <div class="sidebar" id="sidebar">
-    <span class="close-btn" onclick="toggleMenu()">✕ CLOSE</span>
-    <a onclick="filter('Bedroom')">Bedroom Suites</a>
-    <a onclick="filter('Kitchen')">Kitchen Designs</a>
+    <a onclick="showPage('shop')">Shop All</a>
+    <a onclick="showPage('about')">Our Story</a>
+    <hr style="border: 0.5px solid #222;">
+    <a onclick="filter('Bedroom')">Bedrooms</a>
+    <a onclick="filter('Kitchen')">Kitchens</a>
     <a onclick="filter('Deals')">Exclusive Deals</a>
-    <a onclick="filter('Discounted')">Clearance Gallery</a>
-    <a onclick="filter('Seasonal')">Seasonal Trends</a>
-    <a onclick="showOrders()">Simulated Order History</a>
-    <a onclick="filter('All')">Full Collection</a>
+    <a onclick="filter('Discounted')">Clearance</a>
+    <a onclick="filter('Seasonal')">Seasonal</a>
 </div>
 
-<div class="container">
-    <div id="order-panel">
-        <h3 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px;">Demo Order History</h3>
-        <p style="color: #888;">Order #SL-8821: Oak King Bed - <span style="color: var(--gold);">Delivered</span></p>
-        <p style="color: #888;">Order #SL-9044: Teak Cutting Board - <span style="color: var(--gold);">Processing</span></p>
-        <button onclick="document.getElementById('order-panel').style.display='none'" style="background: none; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; padding: 5px 10px;">Close History</button>
+<div id="about" class="content-section fade-in">
+    <div class="about-text">
+        "Every piece of timber holds a soul. At Silva Lignum, we don't just build furniture; we preserve the legacy of the forest in a dance of shadow and gold."
     </div>
+</div>
 
-    <h2 class="section-title" id="view-title">The Master Collection</h2>
+<div id="shop" class="content-section active fade-in">
+    <h2 id="view-title" style="text-align:center; text-transform:uppercase; letter-spacing:3px;">The Gallery</h2>
     <div class="grid" id="product-grid"></div>
 </div>
 
 <div class="modal" id="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <img id="m-img" src="" style="width: 100%; border: 1px solid var(--gold);">
-        <h2 id="m-name" style="margin-top:20px; letter-spacing: 2px;"></h2>
-        <p id="m-desc" style="color:#888;"></p>
-        <p id="m-price" style="font-size: 1.8rem;"></p>
-        <a id="m-wa" href="" class="wa-btn" target="_blank">ORDER VIA WHATSAPP (DEMO)</a>
+        <img id="m-img" src="" style="width:100%;">
+        <h2 id="m-name" style="font-family:'Great Vibes'; font-size: 2rem;"></h2>
+        <p id="m-price"></p>
+        <a id="m-wa" href="" class="wa-btn" target="_blank">INQUIRE (PKR)</a>
     </div>
 </div>
 
-<footer>
-    <p>Follow our Craftsmanship</p>
-    <a href="https://instagram.com/silva_lignum_demo" class="social-link" target="_blank">Instagram @silva_lignum_demo</a>
-    <p style="font-size: 0.8rem; margin-top: 20px; color: #444;">&copy; 2026 Silva Lignum Artistry Prototype. Built for Demonstration.</p>
-</footer>
-
 <script>
-    // DEMO DATA ONLY
-    const demoNumber = "920000000000"; 
-    
-    const products = [
-        { category: "Bedroom", name: "Oak King Bed", price: "Rs. 240,000", desc: "Premium solid oak with gold-leaf accents.", img: "https://images.unsplash.com/photo-1505693419148-db19f38768e7?w=400" },
-        { category: "Kitchen", name: "Walnut Island", price: "Rs. 420,000", desc: "Live edge walnut slab for professional kitchens.", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=400" },
-        { category: "Deals", name: "Artisan Coaster Set", price: "Rs. 5,500", desc: "Set of 6 polished acacia coasters.", img: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400" },
-        { category: "Discounted", name: "Ash Coffee Table", price: "Rs. 85,000", desc: "Showroom floor model. Perfect condition.", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400" },
-        { category: "Seasonal", name: "Teak Patio Set", price: "Rs. 125,000", desc: "Limited edition summer outdoor set.", img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400" }
-        // ... (Remaining 20 items follow same structure)
-    ];
+    const demoWA = "920000000000";
+
+    // Generating 10 products per category (50 total)
+    const categories = ["Bedroom", "Kitchen", "Deals", "Discounted", "Seasonal"];
+    const products = [];
+
+    categories.forEach(cat => {
+        for(let i=1; i<=10; i++) {
+            products.push({
+                category: cat,
+                name: `${cat} Piece No. ${i}`,
+                price: `Rs. ${Math.floor(Math.random() * 500000) + 20000}`,
+                img: `https://picsum.photos/400/400?random=${cat}${i}` // Random furniture-style placeholders
+            });
+        }
+    });
 
     function renderProducts(list = products) {
         const grid = document.getElementById('product-grid');
@@ -152,33 +147,26 @@
         });
     }
 
-    function searchProducts() {
-        const term = document.getElementById('searchBar').value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(term));
-        renderProducts(filtered);
-    }
-
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
 
-    function filter(cat) {
-        document.getElementById('view-title').innerText = cat;
-        const filtered = cat === 'All' ? products : products.filter(p => p.category === cat);
-        renderProducts(filtered);
+    function showPage(pageId) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
         toggleMenu();
     }
 
-    function showOrders() {
-        document.getElementById('order-panel').style.display = 'block';
-        toggleMenu();
-        window.scrollTo(0,0);
+    function filter(cat) {
+        showPage('shop');
+        document.getElementById('view-title').innerText = cat;
+        const filtered = products.filter(p => p.category === cat);
+        renderProducts(filtered);
     }
 
     function openModal(p) {
         document.getElementById('m-img').src = p.img;
         document.getElementById('m-name').innerText = p.name;
-        document.getElementById('m-desc').innerText = p.desc;
         document.getElementById('m-price').innerText = p.price;
-        document.getElementById('m-wa').href = `https://wa.me/${demoNumber}?text=Demo Inquiry: ${p.name}`;
+        document.getElementById('m-wa').href = `https://wa.me/${demoWA}?text=Inquiry: ${p.name}`;
         document.getElementById('modal').style.display = 'flex';
     }
 
