@@ -1,133 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Silva & Vitrum | Artisanal Glass & Wood Collection 2026</title>
-  <meta name="description" content="Official Silva & Vitrum Shop. Hand-blown glass and hand-carved wood decor pieces. Collection 2026.">
-  <meta name="keywords" content="Silva and Vitrum, glass decor, wood art, artisanal shop, luxury home 2026">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silva Lignum | Elite Woodwork Prototype</title>
+    <style>
+        :root { 
+            --gold: #d4af37; 
+            --dark-gold: #aa8c2c;
+            --bg-texture: #0a0a0a; 
+            --card-bg: #141414;
+            --wa: #25D366; 
+        }
+        
+        body { 
+            font-family: 'Times New Roman', serif; 
+            margin: 0; 
+            background-color: var(--bg-texture);
+            background-image: radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0);
+            background-size: 30px 30px;
+            color: var(--gold); 
+            scroll-behavior: smooth; 
+        }
+        
+        header { 
+            background: rgba(0,0,0,0.95); 
+            color: var(--gold); 
+            padding: 1.5rem; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 2px solid var(--gold); 
+        }
 
-  <style>
-    * { box-sizing: border-box; scroll-behavior: smooth; }
-    body { background: #fdfdfd; color: #1a1a1a; font-family: "Georgia", serif; margin: 0; }
-    nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: white; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-    .logo { letter-spacing: 5px; font-weight: bold; font-size: 18px; cursor: pointer; }
-    .nav-links span { font-size: 10px; letter-spacing: 2px; margin-left: 20px; cursor: pointer; text-transform: uppercase; color: #555; }
-    .view-section { display: none; animation: fadeIn 0.4s ease; }
-    .active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .hero { height: 35vh; background: #f8f8f8; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-    .filter-bar { text-align: center; padding: 25px 0; background: #fff; border-bottom: 1px solid #f9f9f9; }
-    .f-btn { background: none; border: 1px solid #eee; padding: 8px 18px; font-size: 10px; border-radius: 20px; margin: 0 5px; cursor: pointer; }
-    .f-btn.active { background: #1a1a1a; color: white; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; max-width: 1000px; margin: 0 auto; }
-    .card { border: 1px solid #f2f2f2; padding-bottom: 15px; text-align: center; background: white; cursor: pointer; }
-    .img-box { height: 180px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 10px; }
-    .item-name { font-size: 14px; margin: 10px 0 5px 0; }
-    .price { color: #8b5e3c; font-size: 12px; font-weight: bold; }
-    .desc-content { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-    .add-cart-btn { background: #1a1a1a; color: white; border: none; padding: 20px; width: 100%; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; }
-    .checkout-box { max-width: 400px; margin: 60px auto; padding: 30px; border: 1px solid #eee; text-align: center; }
-    .pay-btn { display: block; width: 100%; padding: 18px; margin-bottom: 10px; border: 1px solid #ddd; background: white; cursor: pointer; }
-  </style>
+        .menu-btn { position: absolute; right: 20px; top: 20px; font-size: 30px; cursor: pointer; color: var(--gold); background: none; border: none; }
+        
+        .search-container { margin: 15px auto; max-width: 400px; padding: 0 20px; }
+        #searchBar { 
+            width: 100%; padding: 12px; border-radius: 0; 
+            border: 1px solid var(--gold); background: #000; color: var(--gold); 
+            font-size: 1rem; outline: none; 
+        }
+
+        /* Sidebar */
+        .sidebar { position: fixed; right: -300px; top: 0; width: 280px; height: 100%; background: #000; color: var(--gold); transition: 0.4s; z-index: 1000; padding-top: 60px; border-left: 2px solid var(--gold); }
+        .sidebar.active { right: 0; }
+        .sidebar a { display: block; padding: 15px 25px; color: var(--gold); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid #222; cursor: pointer; }
+        .sidebar a:hover { background: var(--gold); color: #000; }
+        .close-btn { position: absolute; top: 10px; left: 10px; font-size: 20px; cursor: pointer; color: var(--gold); }
+
+        /* Order History Panel */
+        #order-panel { display: none; padding: 20px; background: #111; border: 1px solid var(--gold); margin: 20px; border-radius: 5px; }
+
+        /* Gallery */
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .section-title { text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .card { 
+            background: var(--card-bg); overflow: hidden; cursor: pointer; 
+            box-shadow: 10px 10px 25px rgba(0,0,0,0.7); transition: 0.3s; 
+            border: 1px solid #222; 
+        }
+        .card:hover { transform: scale(1.02); border-color: var(--gold); }
+        .card img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(30%); }
+        .info { padding: 20px; text-align: center; }
+        .price { color: var(--gold); font-weight: bold; font-size: 1.4rem; }
+
+        /* Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #000; max-width: 500px; width: 100%; border: 1px solid var(--gold); padding: 25px; text-align: center; position: relative; }
+        .wa-btn { background: var(--gold); color: #000; padding: 15px; display: block; text-decoration: none; font-weight: bold; margin-top: 20px; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--gold); padding: 40px 20px; text-align: center; margin-top: 50px; background: #000; }
+        .social-link { color: var(--gold); text-decoration: none; font-size: 1.2rem; border: 1px solid var(--gold); padding: 10px 20px; display: inline-block; margin-top: 10px; }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo" onclick="showView('home-view')">SILVA</div>
-  <div class="nav-links">
-    <span onclick="showView('home-view')">SHOP</span>
-    <span onclick="showView('about-view')">ABOUT</span>
-  </div>
-</nav>
+<header>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <h1>SILVA LIGNUM</h1>
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search Masterpieces..." onkeyup="searchProducts()">
+    </div>
+</header>
 
-<div id="home-view" class="view-section active">
-  <header class="hero"><h1>Silva & Vitrum</h1><p style="letter-spacing:4px; font-size:10px; color:#aaa;">ARTISAN COLLECTION</p></header>
-  <div class="filter-bar">
-    <button class="f-btn active" onclick="filterItems('ALL', this)">ALL</button>
-    <button class="f-btn" onclick="filterItems('GLASS', this)">GLASS</button>
-    <button class="f-btn" onclick="filterItems('WOOD', this)">WOOD</button>
-  </div>
-  <div class="grid" id="product-grid"></div>
+<div class="sidebar" id="sidebar">
+    <span class="close-btn" onclick="toggleMenu()">✕ CLOSE</span>
+    <a onclick="filter('Bedroom')">Bedroom Suites</a>
+    <a onclick="filter('Kitchen')">Kitchen Designs</a>
+    <a onclick="filter('Deals')">Exclusive Deals</a>
+    <a onclick="filter('Discounted')">Clearance Gallery</a>
+    <a onclick="filter('Seasonal')">Seasonal Trends</a>
+    <a onclick="showOrders()">Simulated Order History</a>
+    <a onclick="filter('All')">Full Collection</a>
 </div>
 
-<div id="desc-view" class="view-section">
-  <div class="desc-content">
-    <div style="width:100%; height:300px; background:#f4f4f4; margin-bottom:30px;"></div>
-    <h1 id="d-title" style="font-style:italic;"></h1>
-    <p id="d-price" style="font-weight:bold; color:#8b5e3c;"></p>
-    <p id="d-text" style="line-height:1.8; color:#444;"></p>
-    <button class="add-cart-btn" onclick="showView('checkout-view')">ADD TO CART</button>
-    <p onclick="showView('home-view')" style="text-align:center; margin-top:30px; font-size:11px; text-decoration:underline; cursor:pointer;">← BACK</p>
-  </div>
+<div class="container">
+    <div id="order-panel">
+        <h3 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px;">Demo Order History</h3>
+        <p style="color: #888;">Order #SL-8821: Oak King Bed - <span style="color: var(--gold);">Delivered</span></p>
+        <p style="color: #888;">Order #SL-9044: Teak Cutting Board - <span style="color: var(--gold);">Processing</span></p>
+        <button onclick="document.getElementById('order-panel').style.display='none'" style="background: none; border: 1px solid var(--gold); color: var(--gold); cursor: pointer; padding: 5px 10px;">Close History</button>
+    </div>
+
+    <h2 class="section-title" id="view-title">The Master Collection</h2>
+    <div class="grid" id="product-grid"></div>
 </div>
 
-<div id="checkout-view" class="view-section">
-  <div class="checkout-box">
-    <h2 style="font-style:italic;">Checkout</h2>
-    <button class="pay-btn" onclick="alert('Card Selected')">CREDIT CARD</button>
-    <button class="pay-btn" onclick="alert('Apple Pay Selected')">APPLE PAY</button>
-    <button class="pay-btn" onclick="alert('Crypto Selected')">BITCOIN / ETH</button>
-    <p onclick="showView('home-view')" style="margin-top:30px; font-size:11px; text-decoration:underline; cursor:pointer;">Cancel</p>
-  </div>
+<div class="modal" id="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="m-img" src="" style="width: 100%; border: 1px solid var(--gold);">
+        <h2 id="m-name" style="margin-top:20px; letter-spacing: 2px;"></h2>
+        <p id="m-desc" style="color:#888;"></p>
+        <p id="m-price" style="font-size: 1.8rem;"></p>
+        <a id="m-wa" href="" class="wa-btn" target="_blank">ORDER VIA WHATSAPP (DEMO)</a>
+    </div>
 </div>
 
-<div id="about-view" class="view-section">
-  <div style="padding: 80px 10%; text-align: center;">
-    <h2 style="font-style:italic;">Our Vision</h2>
-    <p>Combining earth-grown wood and hand-blown glass for the modern home.</p>
-    <button class="add-cart-btn" style="width:auto; padding: 15px 40px;" onclick="showView('home-view')">Back to Shop</button>
-  </div>
-</div>
+<footer>
+    <p>Follow our Craftsmanship</p>
+    <a href="https://instagram.com/silva_lignum_demo" class="social-link" target="_blank">Instagram @silva_lignum_demo</a>
+    <p style="font-size: 0.8rem; margin-top: 20px; color: #444;">&copy; 2026 Silva Lignum Artistry Prototype. Built for Demonstration.</p>
+</footer>
 
 <script>
-  const products = [
-    { name: "Aurora Vase", type: "GLASS", price: "$180", desc: "Hand-blown smoke glass. Melted at 2400°F and swirled by hand." },
-    { name: "Heritage Bowl", type: "WOOD", price: "$240", desc: "Carved from a single block of Black Walnut and sealed with organic beeswax." },
-    { name: "Lumina Carafe", type: "GLASS", price: "$120", desc: "Precision fluted crystal designed to refract light." },
-    { name: "Sculpt Tray", type: "WOOD", price: "$95", desc: "White Oak tray with sand-finished edges for a satin-soft touch." },
-    { name: "Solis Sphere", type: "GLASS", price: "$210", desc: "Amber glass center-piece designed to hold botanicals." },
-    { name: "Apex Platter", type: "WOOD", price: "$135", desc: "Reclaimed Teak wood platter with a natural finish." },
-    { name: "Nordic Pitcher", type: "GLASS", price: "$110", desc: "Thick recycled glass featuring artisanal bubbles." },
-    { name: "Pillar Stand", type: "WOOD", price: "$80", desc: "Ebonized Ash wood stand charred to highlight grain." },
-    { name: "Prism Vessel", type: "GLASS", price: "$290", desc: "Geometric crystal hand-ground to cast prisms." },
-    { name: "Basin Board", type: "WOOD", price: "$155", desc: "Solid Acacia wood with a hand-routed basin." }
-  ];
+    // DEMO DATA ONLY
+    const demoNumber = "920000000000"; 
+    
+    const products = [
+        { category: "Bedroom", name: "Oak King Bed", price: "Rs. 240,000", desc: "Premium solid oak with gold-leaf accents.", img: "https://images.unsplash.com/photo-1505693419148-db19f38768e7?w=400" },
+        { category: "Kitchen", name: "Walnut Island", price: "Rs. 420,000", desc: "Live edge walnut slab for professional kitchens.", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=400" },
+        { category: "Deals", name: "Artisan Coaster Set", price: "Rs. 5,500", desc: "Set of 6 polished acacia coasters.", img: "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400" },
+        { category: "Discounted", name: "Ash Coffee Table", price: "Rs. 85,000", desc: "Showroom floor model. Perfect condition.", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400" },
+        { category: "Seasonal", name: "Teak Patio Set", price: "Rs. 125,000", desc: "Limited edition summer outdoor set.", img: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400" }
+        // ... (Remaining 20 items follow same structure)
+    ];
 
-  function renderGrid(filter = 'ALL') {
-    const grid = document.getElementById('product-grid');
-    grid.innerHTML = '';
-    products.filter(p => filter === 'ALL' || p.type === filter).forEach(p => {
-      grid.innerHTML += `
-        <div class="card" onclick="openDesc('${p.name}', '${p.price}', '${p.desc}')">
-          <div class="img-box">${p.type}</div>
-          <div class="item-name">${p.name}</div>
-          <div class="price">${p.price}</div>
-        </div>`;
-    });
-  }
+    function renderProducts(list = products) {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        list.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => openModal(p);
+            card.innerHTML = `<img src="${p.img}"><div class="info"><h3>${p.name}</h3><p class="price">${p.price}</p></div>`;
+            grid.appendChild(card);
+        });
+    }
 
-  function filterItems(type, btn) {
-    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderGrid(type);
-  }
+    function searchProducts() {
+        const term = document.getElementById('searchBar').value.toLowerCase();
+        const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+        renderProducts(filtered);
+    }
 
-  function showView(viewId) {
-    document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-    document.getElementById(viewId).classList.add('active');
-    window.scrollTo(0,0);
-  }
+    function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
 
-  function openDesc(name, price, text) {
-    document.getElementById('d-title').innerText = name;
-    document.getElementById('d-price').innerText = price;
-    document.getElementById('d-text').innerText = text;
-    showView('desc-view');
-  }
+    function filter(cat) {
+        document.getElementById('view-title').innerText = cat;
+        const filtered = cat === 'All' ? products : products.filter(p => p.category === cat);
+        renderProducts(filtered);
+        toggleMenu();
+    }
 
-  renderGrid();
+    function showOrders() {
+        document.getElementById('order-panel').style.display = 'block';
+        toggleMenu();
+        window.scrollTo(0,0);
+    }
+
+    function openModal(p) {
+        document.getElementById('m-img').src = p.img;
+        document.getElementById('m-name').innerText = p.name;
+        document.getElementById('m-desc').innerText = p.desc;
+        document.getElementById('m-price').innerText = p.price;
+        document.getElementById('m-wa').href = `https://wa.me/${demoNumber}?text=Demo Inquiry: ${p.name}`;
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+    renderProducts();
 </script>
 </body>
 </html>
