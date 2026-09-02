@@ -5,48 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Silva & Vitrum | Shop</title>
-  <meta name="description" content="Artisanal glass and wood decor.">
-  <meta name="keywords" content="Silva and Vitrum, glass decor, wood art">
+  <meta name="description" content="Handmade glass and wood decor.">
 
   <style>
     * { box-sizing: border-box; scroll-behavior: smooth; }
-    body { background: #fdfdfd; color: #1a1a1a; font-family: "Georgia", serif; margin: 0; }
-    nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: white; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-    .logo { letter-spacing: 5px; font-weight: bold; font-size: 18px; cursor: pointer; }
-    .nav-links span { font-size: 10px; letter-spacing: 2px; margin-left: 20px; cursor: pointer; text-transform: uppercase; color: #555; }
-    .view-section { display: none; animation: fadeIn 0.4s ease; }
+    body { background: #fdfdfd; color: #1a1a1a; font-family: sans-serif; margin: 0; }
+    
+    nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: white; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+    .logo { letter-spacing: 3px; font-weight: bold; font-size: 18px; cursor: pointer; }
+    .nav-links { display: flex; align-items: center; }
+    .nav-links span { font-size: 11px; letter-spacing: 1px; margin-left: 15px; cursor: pointer; text-transform: uppercase; color: #555; }
+    
+    .view-section { display: none; animation: fadeIn 0.3s ease; }
     .active { display: block; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .hero { height: 25vh; background: #f8f8f8; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-    .filter-bar { text-align: center; padding: 20px 0; background: #fff; border-bottom: 1px solid #f9f9f9; }
-    .f-btn { background: none; border: 1px solid #eee; padding: 8px 18px; font-size: 10px; border-radius: 20px; margin: 0 5px; cursor: pointer; }
-    .f-btn.active { background: #1a1a1a; color: white; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; max-width: 1000px; margin: 0 auto; }
-    .card { border: 1px solid #f2f2f2; padding-bottom: 15px; text-align: center; background: white; cursor: pointer; }
-    .img-box { height: 180px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 10px; }
-    .item-name { font-size: 14px; margin: 10px 0 5px 0; }
-    .price { color: #8b5e3c; font-size: 12px; font-weight: bold; }
-    .desc-content { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-    .add-cart-btn { background: #1a1a1a; color: white; border: none; padding: 18px; width: 100%; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; }
-    .checkout-box { max-width: 400px; margin: 40px auto; padding: 30px; border: 1px solid #eee; text-align: center; }
-    .pay-btn { display: block; width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; background: white; cursor: pointer; }
     
-    /* Shared style for half-width centered back buttons */
-    .back-btn {
-      display: block;
-      width: 50%;
-      margin: 25px auto 0 auto;
-      padding: 12px 0;
-      background: #f4f4f4;
+    .hero { height: 20vh; background: #f8f8f8; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+    .filter-bar { text-align: center; padding: 15px 0; background: #fff; border-bottom: 1px solid #f9f9f9; }
+    .f-btn { background: none; border: 1px solid #eee; padding: 8px 18px; font-size: 11px; border-radius: 20px; margin: 0 4px; cursor: pointer; }
+    .f-btn.active { background: #1a1a1a; color: white; }
+    
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; max-width: 900px; margin: 0 auto; }
+    .card { border: 1px solid #f2f2f2; padding-bottom: 15px; text-align: center; background: white; cursor: pointer; }
+    .img-box { height: 160px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #888; font-size: 12px; }
+    .item-name { font-size: 15px; font-weight: bold; margin: 10px 0 5px 0; }
+    .price { color: #8b5e3c; font-size: 13px; font-weight: bold; }
+    
+    .desc-content { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .desc-lines p { margin: 6px 0; color: #444; line-height: 1.4; font-size: 14px; }
+    
+    .action-btn { background: #1a1a1a; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-top: 15px; font-weight: bold; }
+    .action-btn:hover { background: #333; }
+    
+    .checkout-box { max-width: 480px; margin: 30px auto; padding: 25px; border: 1px solid #eee; background: white; }
+    .cart-summary { background: #f9f9f9; padding: 15px; border: 1px solid #eaeaea; margin-bottom: 20px; text-align: left; }
+    .cart-summary h3 { margin: 0 0 10px 0; font-size: 16px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+    .cart-summary ul { margin: 5px 0; padding-left: 18px; font-size: 12px; color: #555; }
+    .pay-btn { display: block; width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; background: white; cursor: pointer; font-weight: bold; }
+    
+    /* Left-aligned back button style */
+    .left-back-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #f0f0f0;
       color: #333;
-      border: 1px solid #ddd;
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      border: 1px solid #ccc;
+      font-size: 12px;
       cursor: pointer;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      font-weight: bold;
     }
-    .back-btn:hover { background: #e8e8e8; }
+    .left-back-btn:hover { background: #e0e0e0; }
   </style>
 </head>
 <body>
@@ -54,72 +64,208 @@
 <nav>
   <div class="logo" onclick="showView('home-view')">SILVA</div>
   <div class="nav-links">
+    <span onclick="history.back()">← BACK</span>
     <span onclick="showView('home-view')">SHOP</span>
     <span onclick="showView('about-view')">ABOUT</span>
   </div>
 </nav>
 
 <div id="home-view" class="view-section active">
-  <header class="hero"><h1>Silva & Vitrum</h1><p style="letter-spacing:3px; font-size:10px; color:#aaa;">WOOD & GLASS</p></header>
+  <header class="hero">
+    <h1>Silva & Vitrum</h1>
+    <p style="font-size:12px; color:#666;">Handmade Glass & Wood Home Goods</p>
+  </header>
   <div class="filter-bar">
-    <button class="f-btn active" onclick="filterItems('ALL', this)">ALL</button>
+    <button class="f-btn active" onclick="filterItems('ALL', this)">ALL ITEMS</button>
     <button class="f-btn" onclick="filterItems('GLASS', this)">GLASS</button>
     <button class="f-btn" onclick="filterItems('WOOD', this)">WOOD</button>
   </div>
+  <div style="max-width:900px; margin:10px auto 0 auto; padding: 0 15px;">
+    <button class="left-back-btn" onclick="history.back()">← BACK</button>
+  </div>
   <div class="grid" id="product-grid"></div>
-  <button class="back-btn" onclick="history.back()">← Back</button>
 </div>
 
 <div id="desc-view" class="view-section">
   <div class="desc-content">
-    <div style="width:100%; height:250px; background:#f4f4f4; margin-bottom:20px;"></div>
-    <h1 id="d-title" style="font-style:italic; margin: 0 0 10px 0;"></h1>
-    <p id="d-price" style="font-weight:bold; color:#8b5e3c; margin: 0 0 15px 0;"></p>
-    <p id="d-text" style="line-height:1.6; color:#444; margin-bottom: 25px;"></p>
-    <button class="add-cart-btn" onclick="showView('checkout-view')">BUY</button>
-    <button class="back-btn" onclick="showView('home-view')">← Back</button>
+    <button class="left-back-btn" onclick="showView('home-view')">← BACK TO SHOP</button>
+    <div style="width:100%; height:200px; background:#f4f4f4; margin-bottom:15px; display:flex; align-items:center; justify-content:center; color:#aaa;">PRODUCT PHOTO</div>
+    <h1 id="d-title" style="margin: 0 0 5px 0;"></h1>
+    <p id="d-price" style="font-size:16px; font-weight:bold; color:#8b5e3c; margin: 0 0 15px 0;"></p>
+    
+    <div id="d-text" class="desc-lines"></div>
+    
+    <button class="action-btn" onclick="goToCheckout()">ADD TO CART & CHECKOUT</button>
   </div>
 </div>
 
 <div id="checkout-view" class="view-section">
   <div class="checkout-box">
-    <h2 style="font-style:italic;">Pay</h2>
-    <button class="pay-btn" onclick="alert('Card Selected')">CARD</button>
-    <button class="pay-btn" onclick="alert('Apple Pay Selected')">APPLE PAY</button>
-    <button class="pay-btn" onclick="alert('Crypto Selected')">CRYPTO</button>
-    <button class="back-btn" onclick="showView('home-view')">← Back</button>
+    <button class="left-back-btn" onclick="showView('home-view')">← BACK TO SHOP</button>
+    <h2>Your Cart Order</h2>
+    
+    <div class="cart-summary" id="cart-summary">
+      <p style="color:#777;">No item selected yet. Please pick an item from the shop.</p>
+    </div>
+    
+    <h3>Select Payment Method</h3>
+    <button class="pay-btn" onclick="alert('Paying with Credit Card')">CREDIT CARD</button>
+    <button class="pay-btn" onclick="alert('Paying with Apple Pay')">APPLE PAY</button>
+    <button class="pay-btn" onclick="alert('Paying with PayPal')">PAYPAL</button>
   </div>
 </div>
 
 <div id="about-view" class="view-section">
-  <div style="padding: 60px 10%; text-align: center; max-width: 600px; margin: 0 auto;">
-    <h2 style="font-style:italic;">About</h2>
-    <p style="color: #555; line-height: 1.6;">Handcrafted wood and blown glass pieces.</p>
-    <button class="back-btn" onclick="showView('home-view')">← Back</button>
+  <div style="padding: 30px 20px; max-width: 600px; margin: 0 auto;">
+    <button class="left-back-btn" onclick="showView('home-view')">← BACK TO SHOP</button>
+    <h2>About Our Shop</h2>
+    <p style="color: #444; line-height: 1.6;">We make real home goods from natural wood and hand-blown glass. Every piece is made by hand to last a long time in your home.</p>
   </div>
 </div>
 
 <script>
+  let currentItem = null;
+
   const products = [
-    { name: "Aurora Vase", type: "GLASS", price: "$180", desc: "Hand-blown smoked glass." },
-    { name: "Heritage Bowl", type: "WOOD", price: "$240", desc: "Carved walnut wood." },
-    { name: "Lumina Carafe", type: "GLASS", price: "$120", desc: "Fluted crystal." },
-    { name: "Sculpt Tray", type: "WOOD", price: "$95", desc: "Satin-finish white oak." },
-    { name: "Solis Sphere", type: "GLASS", price: "$210", desc: "Amber glass vessel." },
-    { name: "Apex Platter", type: "WOOD", price: "$135", desc: "Reclaimed teak wood." },
-    { name: "Nordic Pitcher", type: "GLASS", price: "$110", desc: "Recycled thick glass." },
-    { name: "Pillar Stand", type: "WOOD", price: "$80", desc: "Ebonized ash wood." },
-    { name: "Prism Vessel", type: "GLASS", price: "$290", desc: "Geometric cut crystal." },
-    { name: "Basin Board", type: "WOOD", price: "$155", desc: "Solid acacia wood." }
+    { 
+      name: "Aurora Vase", 
+      type: "GLASS", 
+      price: "$180", 
+      lines: [
+        "Material: Heavy clear glass mixed with dark grey tint.",
+        "Making process: Heated in a hot oven and blown into shape by hand.",
+        "Design look: Has smooth wavy lines with a round stable base.",
+        "Best use: Great for holding fresh cut flowers or water.",
+        "Care instructions: Wash gently by hand with mild soap and room water.",
+        "Origin: Crafted in small batches by independent glassmakers."
+      ] 
+    },
+    { 
+      name: "Heritage Bowl", 
+      type: "WOOD", 
+      price: "$240", 
+      lines: [
+        "Material: Solid brown walnut wood cut from a single log block.",
+        "Making process: Hand carved on a wood lathe machine and smoothed out.",
+        "Design look: Deep natural wood lines with a soft natural coat.",
+        "Best use: Great as a kitchen table center bowl or fruit holder.",
+        "Care instructions: Wipe clean with a damp towel and dry quickly.",
+        "Origin: Hand carved in North America using local wood trees."
+      ] 
+    },
+    { 
+      name: "Lumina Carafe", 
+      type: "GLASS", 
+      price: "$120", 
+      lines: [
+        "Material: Strong clear glass made to shine under direct light.",
+        "Making process: Moulded slowly to form deep straight lines along sides.",
+        "Design look: Tall clear bottle with a wide spout for easy pouring.",
+        "Best use: Made for serving cold water, juice, or cold drinks.",
+        "Care instructions: Safe to clean in standard home dishwashers.",
+        "Origin: Formed in traditional glass workshops."
+      ] 
+    },
+    { 
+      name: "Sculpt Tray", 
+      type: "WOOD", 
+      price: "$95", 
+      lines: [
+        "Material: Light white oak wood with fine straight grain lines.",
+        "Making process: Cut into a flat plate shape and sanded soft.",
+        "Design look: Minimal flat plate with smooth curved side edges.",
+        "Best use: Perfect for holding keys, watch, coffee cups, or mail.",
+        "Care instructions: Treat with food-safe wood oil once every month.",
+        "Origin: Built by skilled woodworkers using clean hardwood."
+      ] 
+    },
+    { 
+      name: "Solis Sphere", 
+      type: "GLASS", 
+      price: "$210", 
+      lines: [
+        "Material: Thick warm amber glass that catches sunlight nicely.",
+        "Making process: Blown into a round ball mold while glass is red hot.",
+        "Design look: Smooth round glass bowl with an open top hole.",
+        "Best use: Holds small green indoor plants or decorative stones.",
+        "Care instructions: Clean the inner glass with a long soft brush.",
+        "Origin: Hand blown in custom glass studio batches."
+      ] 
+    },
+    { 
+      name: "Apex Platter", 
+      type: "WOOD", 
+      price: "$135", 
+      lines: [
+        "Material: Dark teak wood taken from old used wood builds.",
+        "Making process: Cut, joined tight, and sanded down until smooth.",
+        "Design look: Wide serving board showing natural dark wood knots.",
+        "Best use: Ideal for serving cheese, bread, snacks, and appetizers.",
+        "Care instructions: Hand wash only and never submerge under water.",
+        "Origin: Handcrafted from reclaimed wood materials."
+      ] 
+    },
+    { 
+      name: "Nordic Pitcher", 
+      type: "GLASS", 
+      price: "$110", 
+      lines: [
+        "Material: Thick green recycled glass bottle material.",
+        "Making process: Melted old glass reset into a sturdy drink pitcher.",
+        "Design look: Simple classic jug shape with small air bubbles inside.",
+        "Best use: Serves cold water, iced tea, or homemade lemonade.",
+        "Care instructions: Wash using warm soapy water and dry by hand.",
+        "Origin: Made in eco-friendly glass recycling shops."
+      ] 
+    },
+    { 
+      name: "Pillar Stand", 
+      type: "WOOD", 
+      price: "$80", 
+      lines: [
+        "Material: Ash tree wood treated to a dark black finish.",
+        "Making process: Surface flame charred to bring out heavy wood texture.",
+        "Design look: Short round black base block with visible wood grain.",
+        "Best use: Works as a sturdy base stand for candles or small statues.",
+        "Care instructions: Dust off clean using a dry micro-fiber cloth.",
+        "Origin: Prepared by hand in woodworking craft shops."
+      ] 
+    },
+    { 
+      name: "Prism Vessel", 
+      type: "GLASS", 
+      price: "$290", 
+      lines: [
+        "Material: Pure heavy crystal glass cut with straight sharp edges.",
+        "Making process: Cast in a solid shape and hand ground down flat.",
+        "Design look: Multi-sided geometric box that splits light rays.",
+        "Best use: Stands as a heavy decorative piece for desk or shelf.",
+        "Care instructions: Polish clean using glass cleaner spray and cloth.",
+        "Origin: Precision cut by experienced master glass cutters."
+      ] 
+    },
+    { 
+      name: "Basin Board", 
+      type: "WOOD", 
+      price: "$155", 
+      lines: [
+        "Material: Hard acacia wood with rich dark and light patterns.",
+        "Making process: Machine carved out inside to make a raised rim.",
+        "Design look: Flat cutting board with a recessed center area.",
+        "Best use: Cutting meat or vegetables without food juice spilling over.",
+        "Care instructions: Wash quickly by hand and dry off immediately.",
+        "Origin: Made using sustainably grown acacia wood farms."
+      ] 
+    }
   ];
 
   function renderGrid(filter = 'ALL') {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = '';
-    products.filter(p => filter === 'ALL' || p.type === filter).forEach(p => {
+    products.filter(p => filter === 'ALL' || p.type === filter).forEach((p, idx) => {
       grid.innerHTML += `
-        <div class="card" onclick="openDesc('${p.name}', '${p.price}', '${p.desc}')">
-          <div class="img-box">${p.type}</div>
+        <div class="card" onclick="openDesc(${idx})">
+          <div class="img-box">${p.type} ITEM</div>
           <div class="item-name">${p.name}</div>
           <div class="price">${p.price}</div>
         </div>`;
@@ -138,11 +284,45 @@
     window.scrollTo(0,0);
   }
 
-  function openDesc(name, price, text) {
-    document.getElementById('d-title').innerText = name;
-    document.getElementById('d-price').innerText = price;
-    document.getElementById('d-text').innerText = text;
+  function openDesc(index) {
+    currentItem = products[index];
+    document.getElementById('d-title').innerText = currentItem.name;
+    document.getElementById('d-price').innerText = currentItem.price;
+    
+    // Render 6 lines
+    const textContainer = document.getElementById('d-text');
+    textContainer.innerHTML = '';
+    currentItem.lines.forEach(line => {
+      textContainer.innerHTML += `<p>• ${line}</p>`;
+    });
+    
     showView('desc-view');
+  }
+
+  function goToCheckout() {
+    if (!currentItem) return;
+    
+    // Populate checkout item details
+    const summaryBox = document.getElementById('cart-summary');
+    let linesList = '';
+    currentItem.lines.forEach(l => {
+      linesList += `<li>${l}</li>`;
+    });
+    
+    summaryBox.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="margin:0;">${currentItem.name}</h3>
+        <span style="font-weight:bold; color:#8b5e3c;">${currentItem.price}</span>
+      </div>
+      <p style="margin:5px 0 2px 0; font-size:12px; font-weight:bold; color:#333;">Product Details:</p>
+      <ul>${linesList}</ul>
+      <div style="border-top:1px solid #ccc; margin-top:10px; padding-top:8px; font-size:14px; font-weight:bold; display:flex; justify-content:space-between;">
+        <span>Total Price:</span>
+        <span>${currentItem.price}</span>
+      </div>
+    `;
+    
+    showView('checkout-view');
   }
 
   renderGrid();
