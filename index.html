@@ -116,17 +116,17 @@
     <button class="clear-btn" onclick="clearCart()">Clear Cart & Restart</button>
     <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
 
-    <input type="text" placeholder="Your Full Name">
-    <input type="text" placeholder="Shipping Address & City">
-    <input type="tel" placeholder="WhatsApp Phone Number">
-    <input type="email" placeholder="Email Address">
-    <select>
+    <input type="text" id="customer-name" placeholder="Your Full Name">
+    <input type="text" id="customer-address" placeholder="Shipping Address & City">
+    <input type="tel" id="customer-phone" placeholder="WhatsApp Phone Number">
+    <input type="email" id="customer-email" placeholder="Email Address">
+    <select id="payment-method">
         <option disabled selected>Payment Method</option>
         <option>Bank Transfer (HBL/UBL)</option>
         <option>EasyPaisa / JazzCash</option>
         <option>Cash on Delivery</option>
     </select>
-    <button class="primary-btn" onclick="alert('Order Sent! Our team will contact you on WhatsApp.'); location.reload();">COMPLETE ORDER</button>
+    <button class="primary-btn" onclick="sendOrder()">COMPLETE ORDER</button>
 </div>
 
 <script>
@@ -136,6 +136,12 @@
     // ---- Screen history (so the Back button knows where you came from) ----
     let currentPage = 'home';
     let pageHistory = [];
+
+    // ---- Store WhatsApp number that receives every order. ----
+    // This number is never printed anywhere on the page itself — it's only
+    // used here, inside the code, to build the WhatsApp link when someone
+    // completes an order.
+    const storeWhatsAppNumber = '923372450333';
 
     // ---- All products for sale. "picture" tells us which icon to draw. ----
     const products = [
@@ -253,6 +259,40 @@
         buttonEl.style.background = "#d4edda";
     }
 
+    // Sends the shopper's details and cart straight to the store's WhatsApp
+    // as a ready-to-send message. The shopper still taps Send in WhatsApp;
+    // this just fills everything in for them so nothing gets typed twice.
+    function sendOrder() {
+        const name = document.getElementById('customer-name').value.trim();
+        const address = document.getElementById('customer-address').value.trim();
+        const phone = document.getElementById('customer-phone').value.trim();
+        const email = document.getElementById('customer-email').value.trim();
+        const payment = document.getElementById('payment-method').value;
+
+        if (!name || !address || !phone) {
+            alert('Please fill in your name, address, and phone number first.');
+            return;
+        }
+        if (cart.length === 0) {
+            alert('Your cart is empty.');
+            return;
+        }
+
+        const total = cart.reduce((sum, product) => sum + product.price, 0);
+        const itemLines = cart.map(product => `- ${product.name} (Rs. ${product.price.toLocaleString()})`).join('\n');
+
+        const message = `New order from the Silva-Vitrum website\n\n`
+            + `Name: ${name}\n`
+            + `Address: ${address}\n`
+            + `Phone: ${phone}\n`
+            + `Email: ${email || 'Not provided'}\n`
+            + `Payment method: ${payment}\n\n`
+            + `Items:\n${itemLines}\n\n`
+            + `Total: Rs. ${total.toLocaleString()}`;
+
+        window.location.href = `https://wa.me/${storeWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+    }
+
     // Empties the cart after the shopper confirms.
     function clearCart() {
         if (confirm("Are you sure you want to empty your cart?")) {
@@ -312,4 +352,4 @@
     displayProducts();
 </script>
 </body>
-</html>
+</
